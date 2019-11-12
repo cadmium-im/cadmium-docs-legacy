@@ -1,4 +1,4 @@
-# Base
+# Protocol Core
 
 ## Entity ID
 * Room alias: `#<roomAlias>:<serverpart>`
