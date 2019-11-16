@@ -1,5 +1,14 @@
 # Protocol Core
 
+- [Protocol Core](#protocol-core)
+  - [Transport](#transport)
+  - [Entity ID](#entity-id)
+  - [BaseMessage](#basemessage)
+  - [Errors](#errors)
+
+## Transport
+For starting we simply use JSON + Websockets.
+
 ## Entity ID
 * Room alias: `#<roomAlias>:<serverpart>`
 * Username: `@<username>@<serverpart>`
