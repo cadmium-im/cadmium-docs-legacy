@@ -1,45 +1,43 @@
-# Функциональные требования
-## Основное
-1. Возможность федерации (через клирнет, yggdrasil, прочее) (pztrn)
-    - Возможность запретить, предпочитать, требовать SSL для федерации.
-     	- Например, для yggdrasil SSL тупо избыточен, так как там каждая нода пытается подцепиться к каждой ноде, с которой общается, и SSL создаст излишнюю нагрузку. (pztrn)
-1. Возможность работать в режиме p2p через yggdrasil
-2. Валидация отправителя с помощью криптографических подписей и ключей
-	- Предлагаю сделать это опционально, так как многим юзерам это попросту не надо (ChronosX88)
-		- Полностью согласен, причем первую имплементацию надо делать без вот этого всего. И этот пункт больше к п.4 этого раздела подходит, похоже. (pztrn)
-4. e2ee
-	- e2ee нужно делать "на плагинах", особенно если будем делать гейты в другие сети. Ибо у матрицы - OLM, у XMPP - OTR/OMEMO, и так далее. Для пользователя должна быть запилена прозрачная работа со всем этим добром. (pztrn)
-		- Однако, необходимо выбрать какой-то стандартный криптографический протокол для спеков (ChronosX88)
-			- Это не получится по причине наличия зоопарка разнообразного криптографического говна. Поэтому придется пилить это "на плагинах", так как для пользователя это все должно быть максимально прозрачно. (pztrn)
-	- e2ee нужно делать максимально настраиваемым, чтобы была возможность форсировать e2ee или же не форсировать e2ee, так же как и включать e2ee для отдельных комнат/чатов. (pztrn)
-5. Возможность обслуживать одним инстансом сервера больше одного домена
-6. Feature-agnostic протокол, то есть возможность запилить поверх этого всего и чат, и форум, и блог/микроблог.
-	- Оставить некий слой расширяемости, как в XMPP (для девелоперов конечно же) (ChronosX88)
-7. Реализовать механизм CEP (Cadmium Enchancement Proposals), которые будут обсуждаться, а после принятия входить в основной протокол, или же уходить в CER (Cadmium Enchancements Repository).
-8. Возможность запилить транспорты (мосты, гейты) в другие IM сети.
-	- Тут возможно было бы круто попробовать впилить XMPP как первый гейт и попробовать реюзать транспорты оттуда. (pztrn)
-		- В таком случае, нам необходимо сделать AppService API, как в Матрице. (ChronosX88)
-			- Возможно, только с упором на наш новый протокол. И, опять же, мне кажется, что для транспортов (или AppService) использование HTTP REST API тупо изботочно, и тут хорошо можно поюзать вебсокеты, чтобы и не городить свои хендлеры соединений (все уже готово и есть), а реюзнуть ту же гориллу и JSON-RPC поверх. (pztrn)
-9. Нативные клиенты под все ОС. Можно использовать Go+Qt5, так как мы пилим опенсорц.
-	- Остается вопрос с клиентом под iOS, но если сделаем годный протокол, который будет работать и позволит нормально смапить телегу в виде транспорта - у меня есть человек, который сделает клиент под iOS :) В принципе, учитывая наличие мака, я сам могу попробовать это сделать, но "как-нибудь потом", ибо мои целевые ОС - win/lin/macos/android (pztrn)
+# Functional requirements
+## General
+1. Possibility of federation (via clearnet, yggdrasil, etc.) *(pztrn)*
+    - The ability to prohibit, prefer, require SSL for federation. *(pztrn)*
+     	- For example, for yggdrasil, SSL is redundant, since there each node tries to connect to each node that it communicates with, and SSL creates an unnecessary load. *(pztrn)*
+2. Ability to work in p2p mode via yggdrasil (?, undecided)
+3. Validation of the sender using cryptographic signatures and keys
+	- I suggest doing this optionally, as many users simply don’t need it *(ChronosX88)*
+		- I completely agree, and the first implementation should be done without all this. And this item is more suitable for item 4 of this list, it seems *(pztrn)*
+4. E2EE
+	- e2ee needs to be done "on plugins", especially if we will make gates to other networks. For the matrix has OLM, the XMPP has OTR/OMEMO, and so on. A transparent work with all this things should be done for the user. (pztrn)
+		- However, it is necessary to choose some standard cryptographic protocol for specs. *(ChronosX88)*
+			- This will not work due to the presence of a diverse cryptographic shit zoo. Therefore, you will have to saw it "on plugins", since for the user it should be as transparent as possible. *(pztrn)*
+	- e2ee needs to be made as customizable as possible so that it is possible to force/not force e2ee, as well as enable e2ee for individual rooms/chats. *(pztrn)*
+5. Ability to serve more than one domain with one server instance
+6. Feature-agnostic protocol, that is, the ability to overwrite on top of this all the chat, and the forum, and the blog/microblog.
+	- Leave a layer of extensibility, as in XMPP (for developers, of course) *(ChronosX88)*
+7. Implement the CEP (Cadmium Enchancement Proposals) mechanism, which will be discussed, and after adoption, enter the main protocol, or go to CER (Cadmium Enchancements Repository).
+8. Ability to make transports (bridges, gates) to other IM networks.
+	- Here it would be cool to try to push XMPP as the first gate and try to reuse transports from there. *(pztrn)*
+		- In this case, we need to make the AppService API, as in the Matrix. *(ChronosX88)*
+			- Perhaps only with emphasis on our new protocol. And, again, it seems to me that for transports (or AppService) the use of the HTTP REST API is stupidly redundant, and here you can well use Websockets so as not to make your connection handlers (everything is ready and there), but to reuse the same gorilla (Golang library) and JSON-RPC on top. *(pztrn)*
+9. Native clients under all OS. You can use Go + Qt5, since we are making all free & open source.
+	- The question remains with the client for iOS, but if we make a suitable protocol that will work and will allow us to map the Telegram in the form of transport, I have a person who will make the client for iOS :) In principle, given the having of a macOS, I can try to do it myself but "somehow later", because my target OS is Windows/Linux/macOS/Android *(pztrn)*
 
 ## Чаты
 
-1. Чаты 1-на-1 (с сохранением/без сохранения истории)
-2. Многопользовательские (групповые) чаты
-3. Возможность легко делиться файлами (аналог HTTP upload из XMPP)
-4. Форварды и ответы на сообщения (как в Телеграме)
-5. Стикеры/GIF
-6. Реакции на сообщения
-	- Предлагаю это вынести из Core Specs, так как многим юзерам эта фича не очень важна (я проводил опрос) (ChronosX88)
-		- Я проводил опрос среди корпорастов, и она нужна :) Да и в реализации она не будет очень сложна. (pztrn)
-7. Возможность создать обсуждение из сообщения (треды) как в Slack/Mattermost/Rocket.chat.
-8. Возможность создания кнопок к сообщениям (аналог клавиатуры из Telegram)
-	- Сделать это как расширение, по мне так это не совсем *важная* вещь. (ChronosX88)
-		- Это поможет сделать те же голосования, например. И сильно облегчить трансфер товарищей из телеграма, играющих в игры. (pztrn)
-9. A/V связь, как минимум 1-на-1 (WebRTC/TURN).
-	- Групповая A/V связь желательна, но, учитывая сложность "готовки", предлагаю в самый конец списка приоритетов. (pztrn)
-		- Согласен, можем потом Jitsi заюзать. (ChronosX88)
-10. Пользовательские каналы (как в Телеграме)
-	- Предлагаю это реализовать не как "подсистема" чата, а как отдельную сущность с возможностью комментирования и всем необходимым, в виде лайков-дизлайков. У телеграма все-таки это "костыль" больше, чем реально годная система. (pztrn)
-11. Система бесшовной истории переписки в чатах (as in Telegram). Необходим simple yet powerful API.
+1. 1-on-1 chats (with/without saving history)
+2. Multi-user (group) chats
+3. The ability to easily share files (something like to HTTP Upload XEP from XMPP)
+4. Forwards and replies to messages (as in Telegram)
+5. Stickers/GIF
+6. Message Reactions
+7. Ability to create a discussion from a message (threads) as in Slack/Mattermost/Rocket.chat.
+8. Ability to create buttons for messages (analog keyboard from Telegram)
+	- To do this as an extension, for me it is not quite a *important* thing. *(ChronosX88)*
+		- This will help to make the voting poll, for example. And greatly facilitate the transfer of Telegram friends playing games. *(pztrn)*
+9. Audio/Video communication at least 1-on-1 (WebRTC/TURN).
+	- Group A / V communication is desirable, but given the complexity of "cooking" I suggest at the very end of the priority list. *(pztrn)*
+		- I agree, then we can use Jitsi later. (ChronosX88)
+10. User channels (as in Telegram)
+	- I propose to implement this not as a "subsystem" of the chat, but as a separate entity with the ability to comment and everything you need, in the form of like dislike. In a Telegram, nevertheless, this "crutch" is more than a really suitable system. *(pztrn)*
+11. Seamless chat history system (as in Telegram). A simple yet powerful API is **required**.
