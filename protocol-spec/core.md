@@ -5,6 +5,8 @@
   - [Entity ID](#entity-id)
   - [BaseMessage](#basemessage)
   - [Errors](#errors)
+  - [Account registration/login](#account-registrationlogin)
+    - [Create account](#create-account)
 
 ## Transport
 For starting we simply use JSON + Websockets.
@@ -41,11 +43,11 @@ Mechanism of error processing included into protocol.
 Adds into type name `:error` postfix.
 
 **Payload**:
-* `errCode: int` - error code (defined in extensions. Error code which defined in the specific extension MUST NOT overlap with other error codes)
+* `errCode: int` - error code (defined in extensions, may be same per extensions)
 * `errText: String` - explanation of error in human-readable view
 * `errPayload: Map<K,V>` - advanced error information (fields defined in extensions)
 
-**Example**:  
+**Usecase**:  
 
 *Request*:
 ```json
@@ -74,3 +76,69 @@ Adds into type name `:error` postfix.
     }
 }
 ```
+
+## Account registration/login
+### Create account
+**Description**: Create user account on a server  
+**Type**: `profile:register`  
+**Payload**:
+- Request: 
+  - `username: string` - the username that the user wants to register
+  - `thirdPIDs: []` - array of user third party IDs (email and/or MSISDN). Array contains objects with following fields: 
+    - `type: string` - type of third party ID.
+    - `value: string` - string contains third party ID. Examples: `juliet@capulett.com`, `+1234567890`.
+  - `password` - password of new account
+- Response:
+  - `userID: EntityID`- ID of user (Username in priority. If we haven't username, then we put to this field one of user's third party IDs).  
+
+**Errors**:
+- 0: username/third party ID already taken
+- 1: registration isn't allowed on a server
+
+**Usecase**:
+
+*Request*:
+```json
+{
+    "id": "abcd",
+    "type": "profile:register",
+    "to": "cadmium.org",
+    "payload": {
+        "username": "juliet",
+        "thirdPIDs": [
+            {"type":"email", "value":"juliet@capulett.com"},
+            {"type":"msisdn", "value":"+1234567890"},
+        ],
+        "password": "romeo1"
+    }
+}
+```
+
+*Response*:
+```json
+{
+    "id": "abcd",
+    "type": "profile:register",
+    "from": "cadmium.org",
+    "ok": true,
+    "payload": {
+        "userID": "@juliet@cadmium.org"
+    }
+}
+```
+
+*<b>Error</b> response*:
+```json
+{
+    "id": "abcd",
+    "type": "profile:register",
+    "from": "cadmium.org",
+    "ok": false,
+    "payload": {
+        "errCode": 0,
+        "errText": "{Username/email/msisdn} already taken"
+    }
+}
+```
+
+**Special business rules**: none.
