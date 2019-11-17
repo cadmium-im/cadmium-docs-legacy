@@ -5,8 +5,10 @@
   - [Entity ID](#entity-id)
   - [BaseMessage](#basemessage)
   - [Errors](#errors)
+  - [User devices](#user-devices)
   - [Account registration/login](#account-registrationlogin)
     - [Create account](#create-account)
+    - [Login into account (by username)](#login-into-account-by-username)
 
 ## Transport
 For starting we simply use JSON + Websockets.
@@ -77,6 +79,9 @@ Adds into type name `:error` postfix.
 }
 ```
 
+## User devices
+`todo`
+
 ## Account registration/login
 ### Create account
 **Description**: Create user account on a server  
@@ -87,13 +92,14 @@ Adds into type name `:error` postfix.
   - `thirdPIDs: []` - array of user third party IDs (email and/or MSISDN). Array contains objects with following fields: 
     - `type: string` - type of third party ID.
     - `value: string` - string contains third party ID. Examples: `juliet@capulett.com`, `+1234567890`.
-  - `password` - password of new account
+  - `password: string` - password of new account
 - Response:
   - `userID: EntityID`- ID of user (Username in priority. If we haven't username, then we put to this field one of user's third party IDs).  
 
 **Errors**:
-- 0: username/third party ID already taken
-- 1: registration isn't allowed on a server
+- 0: limit exceed
+- 1: username/third party ID already taken
+- 2: registration isn't allowed on a server
 
 **Usecase**:
 
@@ -135,10 +141,71 @@ Adds into type name `:error` postfix.
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": 0,
+        "errCode": 1,
         "errText": "{Username/email/msisdn} already taken"
     }
 }
 ```
 
 **Special business rules**: none.
+
+### Login into account (by username)
+**Description**: Login into user account on a server by username
+**Type**: `profile:login`  
+**Payload**:
+- Request: 
+  - `username: string` - the username of account which user wants to login
+  - `password: string` - password of new account
+- Response:
+  - `authToken: string` - authentication token which required for various user actions (UUID)
+  - `deviceID: string` - identifier of new user device (created by this login action)
+
+**Errors**:  
+- 0: limit exceed
+- 1: user ID/password isn't valid
+
+**Usecase**:
+
+*Request*:
+```json
+{
+    "id": "abcd",
+    "type": "profile:login",
+    "to": "cadmium.org",
+    "payload": {
+        "username": "juliet",
+        "password": "romeo1"
+    }
+}
+```
+
+*Response*:
+```json
+{
+    "id": "abcd",
+    "type": "profile:login",
+    "from": "cadmium.org",
+    "ok": true,
+    "payload": {
+        "authToken": "3b5135a5-aff5-4396-a629-a254f383e82f",
+        "deviceID": "ABCDEFG"
+    }
+}
+```
+
+*<b>Error</b> response*:
+```json
+{
+    "id": "abcd",
+    "type": "profile:login",
+    "from": "cadmium.org",
+    "ok": false,
+    "payload": {
+        "errCode": 1,
+        "errText": "Username/password isn't valid"
+    }
+}
+```
+
+**Special business rules**: none.
+
