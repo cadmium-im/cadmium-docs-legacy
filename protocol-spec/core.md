@@ -32,11 +32,11 @@ BaseMessage is a basic message model, basis of the whole protocol. It is used fo
 
 BaseMessage scheme:
 ```
-id (string) - identifier of message (used to track the request-response chain)
+id (string) - message identifier (used to track the request-response chain)
 type (string) - type of message (used to determine which extension this message belongs to)
 from (EntityID) - from which entity this message is send
 to (EntityID) - message recipient
-ok (boolean) - operation success indicator (used to determine if errors was happened when processing request)
+ok (boolean) - operation success indicator (used to determine if the error happened while processing request)
 payload (Map<K,V>) - message payload (used to store extra information in message, list of permissible fields in the payload are depends on "type" field)
 ```
 

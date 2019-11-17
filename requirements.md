@@ -7,8 +7,8 @@
 3. Validation of the sender using cryptographic signatures and keys
 	- I suggest doing this optionally, as many users simply don’t need it *(ChronosX88)*
 		- I completely agree, and the first implementation should be done without all this. And this item is more suitable for item 4 of this list, it seems *(pztrn)*
-4. E2EE
-	- e2ee needs to be done "on plugins", especially if we will make gates to other networks. For the matrix has OLM, the XMPP has OTR/OMEMO, and so on. A transparent work with all this things should be done for the user. (pztrn)
+4. E2EE (E2E Encryption)
+	- e2ee needs to be done "on plugins", especially if we will make gates to other networks. Matrix has OLM, the XMPP has OTR/OMEMO, and so on. A transparent work with all this things should be done for the user. (pztrn)
 		- However, it is necessary to choose some standard cryptographic protocol for specs. *(ChronosX88)*
 			- This will not work due to the presence of a diverse cryptographic shit zoo. Therefore, you will have to saw it "on plugins", since for the user it should be as transparent as possible. *(pztrn)*
 	- e2ee needs to be made as customizable as possible so that it is possible to force/not force e2ee, as well as enable e2ee for individual rooms/chats. *(pztrn)*
@@ -20,8 +20,8 @@
 	- Here it would be cool to try to push XMPP as the first gate and try to reuse transports from there. *(pztrn)*
 		- In this case, we need to make the AppService API, as in the Matrix. *(ChronosX88)*
 			- Perhaps only with emphasis on our new protocol. And, again, it seems to me that for transports (or AppService) the use of the HTTP REST API is stupidly redundant, and here you can well use Websockets so as not to make your connection handlers (everything is ready and there), but to reuse the same gorilla (Golang library) and JSON-RPC on top. *(pztrn)*
-9. Native clients under all OS. You can use Go + Qt5, since we are making all free & open source.
-	- The question remains with the client for iOS, but if we make a suitable protocol that will work and will allow us to map the Telegram in the form of transport, I have a person who will make the client for iOS :) In principle, given the having of a macOS, I can try to do it myself but "somehow later", because my target OS is Windows/Linux/macOS/Android *(pztrn)*
+9. Native clients under all major OS. We can use Go + Qt5, since we are making all free & open source.
+	- The question remains with the client for iOS, but if we make a suitable protocol that will work and will allow us to map the Telegram in the form of transport, I have a person who will make the client for iOS :) In general, given the having of a macOS, I can try to do it myself but "somehow later", because my target OS is Windows/Linux/macOS/Android *(pztrn)*
 
 ## Чаты
 
