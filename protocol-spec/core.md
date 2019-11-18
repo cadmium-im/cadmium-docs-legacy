@@ -14,11 +14,11 @@
 For starting we simply use JSON + Websockets.
 
 ## Entity ID
-* Room alias: `#<roomAlias>:<serverpart>`
+* Room alias: `#<roomAlias>@<serverpart>`
 * Username: `@<username>@<serverpart>`
-* User ID with MSISDN (Mobile Station International Subscriber Directory Number): `%<msisdn without +>:<serverpart>`
-* User ID with Email: `^<email username>_at_<email hostname>:<serverpart>`
-* Message ID: `&<uuid>:<serverpart (from which server the message was sent)>`
+* User ID with MSISDN (Mobile Station International Subscriber Directory Number): `%<msisdn without +>@<serverpart>`
+* User ID with Email: `^<email username>_at_<email hostname>@serverpart>`
+* Message ID: `&<uuid>@<serverpart (from which server the message was sent)>`
 * Room ID: `!<roomID>@<serverpart>`
 * Single server-part: `<serverpart>`
 
@@ -37,7 +37,7 @@ type (string) - type of message (used to determine which extension this message 
 from (EntityID) - from which entity this message is send
 to (EntityID) - message recipient
 ok (boolean) - operation success indicator (used to determine if the error happened while processing request)
-payload (Map<K,V>) - message payload (used to store extra information in message, list of permissible fields in the payload are depends on "type" field)
+payload (Map<K,V>) - message payload (used to store extra information in message, list of permissible fields in the payload depends on "type" field)
 ```
 
 ## Errors
