@@ -22,10 +22,15 @@ For starting we simply use JSON + Websockets.
 * Room ID: `!<roomID>@<serverpart>`
 * Single server-part: `<serverpart>`
 
-**Server-part (hostname)** - `IPv4 / [IPv6] / dns-domain:<port (1-65535)>`.  
+**Server-part**:
+- hostname: `IPv4 / [IPv6] / dns-domain:<port (1-65535)>` (for end-users use)
+- server ID: static SHA256 hash string from 4096 characters (for internal protocol use) 
+
 **Username/Room alias/RoomID** - MUST NOT be empty, and MUST contain only the characters `a-z`, `0-9`, `.`, `_`, `=`, `-`, and `/`.
 
-RoomID SHOULD be UUID identifier.
+**Special business rules**: 
+- RoomID SHOULD be UUID identifier.
+- Servers MUST use server ID in internal purposes instead of normal server-part with hostname. Only end-users MUST use normal server-part with hostname. This is done for easy multi-domain serving.
 
 ## BaseMessage
 BaseMessage is a basic message model, basis of the whole protocol. It is used for a very easy protocol extension process.
@@ -85,7 +90,7 @@ Adds into type name `:error` postfix.
 ## Account registration/login
 ### Create account
 **Description**: Create user account on a server  
-**Type**: `profile:register`  
+**Type**: `profile:register`    
 **Payload**:
 - Request: 
   - `username: string` - the username that the user wants to register
