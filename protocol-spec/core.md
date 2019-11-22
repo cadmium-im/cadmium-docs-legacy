@@ -18,6 +18,7 @@ For starting we simply use JSON + Websockets.
 * Username: `@<username>@<serverpart>`
 * User ID with any 3PID: `%<type>:<data>@<serverpart>`
   * Currently supported only following types: `email` and `msisdn`.
+* Raw User ID: `@<UUID>@<serverpart>`
 * Message ID: `&<uuid>@<serverpart (from which server the message was sent)>`
 * Room ID: `!<roomID>@<serverpart>`
 * Single server-part: `<serverpart>`
