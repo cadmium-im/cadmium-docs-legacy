@@ -16,8 +16,8 @@ For starting we simply use JSON + Websockets.
 ## Entity ID
 * Room alias: `#<roomAlias>@<serverpart>`
 * Username: `@<username>@<serverpart>`
-* User ID with MSISDN (Mobile Station International Subscriber Directory Number): `%<msisdn without +>@<serverpart>`
-* User ID with Email: `^<email username>_at_<email hostname>@serverpart>`
+* User ID with any 3PID: `%<type>:<data>@<serverpart>`
+  * Currently supported only following types: `email` and `msisdn`.
 * Message ID: `&<uuid>@<serverpart (from which server the message was sent)>`
 * Room ID: `!<roomID>@<serverpart>`
 * Single server-part: `<serverpart>`
