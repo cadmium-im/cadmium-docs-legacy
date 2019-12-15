@@ -80,14 +80,14 @@ If the JSON data of an element is long, include line breaks and indent by two sp
     }
 }
 ```
-Some examples include strings that are the output of a hashing algorithm such as SHA-1 or SHA-256. An easy way to generate these is to use the OpenSSL "dgst" command to generate the hash. For example, the following command will generate the SHA-1 hash `9f5f9fdab9da7fc12e3c52b258acbcb4bb8e66ac`:
+Some examples include strings that are the output of a hashing algorithm such as SHA-1 or SHA-256. An easy way to generate these is to use the OpenSSL "dgst" command to generate the hash. For example, the following command will generate the SHA-1 hash `a6cf4baabcefb63189a1a1c56158aa431990bba9`:
 ```
-echo -n 'bard@shakespeare.lit' | openssl dgst -hex -sha1
+echo -n '@juliet@396277b7dcd0f1173f2007baa604de7593529cc3fbf335fb7924851cb25c1fdf' | openssl dgst -hex -sha1
 ```
     
-Some examples include strings that are encoded using Base64. An easy way to generate these is to use the OpenSSL "enc" command to generate the base64-encoded equivalent. For example, the following command will generate the base64-encoded string `YmFyZEBzaGFrZXNwZWFyZS5saXQ=`:
+Some examples include strings that are encoded using Base64. An easy way to generate these is to use the OpenSSL "enc" command to generate the base64-encoded equivalent. For example, the following command will generate the base64-encoded string `QGp1bGlldEAzOTYyNzdiN2RjZDBmMTE3M2YyMDA3YmFhNjA0ZGU3NTkzNTI5Y2MzZmJmMzM1ZmI3OTI0ODUxY2IyNWMxZmRm`:
 ```
-echo -n 'bard@shakespeare.lit' | openssl enc -nopad -base64
+echo -n '@juliet@396277b7dcd0f1173f2007baa604de7593529cc3fbf335fb7924851cb25c1fdf' | openssl enc -nopad -base64
 ``` 
 ## Conformance Terms
 Conformance terms (e.g,, "MUST" and "SHOULD") are specified in RFC 2119. Use them. When such terms are not in ALL CAPS, the special conformance sense does not apply (although it is preferable to use terms such as 'might' instead of 'may' and 'ought' instead of 'should').
