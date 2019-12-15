@@ -42,7 +42,7 @@ If there are any internationalization or localization issues related to your pro
 Your proposal MUST include a section entitled "Security Considerations". Even if there are no security features or concerns related to your proposal, you MUST note that fact. For helpful guidelines, refer to RFC 3552.
 
 ## JSON Schema
-An JSON Schema is required in order for protocols to be approved by the Cadmium Developers. The Cadmium Developers team can assist you in defining an JSON Schema for the protocol you are proposing.
+An JSON Schema is required in order for protocols to be approved by the Cadmium Developers. The Cadmium Developers team can assist you in defining an JSON Schema for the protocol you are proposing. Also you can define your schema as TypeScript interfaces, this is also allowed.
 
 ## Acknowledgements (optional)
 Most CE documents end with a section thanking non-authors who have made significant contributions or who have provided feedback regarding the specification.
