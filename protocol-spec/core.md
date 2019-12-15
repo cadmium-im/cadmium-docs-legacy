@@ -42,31 +42,31 @@ interface BaseMessage {
     /**
      * Message identifier (used to track the request-response chain)
      */
-    id: string, // 
+    id: string,
 
     /**
      * Type of message (used to determine which extension this message belongs to)
      */
-    type: string, // 
+    type: string,
     /**
      * From which entity this message is send
      */
-    from: EntityID, // 
+    from: EntityID,
 
     /**
      * Message recipient
      */
-    to: EntityID, // 
+    to: EntityID,
 
     /**
      * Operation success indicator (used to determine if the error happened while processing request)
      */
-    ok: boolean, // 
+    ok: boolean,
 
     /**
      * Message payload (used to store extra information in message, list of permissible fields in the payload depends on "type" field)
      */
-    payload: Map<K,V> // 
+    payload: Map<K,V>
 }
 ```
 
