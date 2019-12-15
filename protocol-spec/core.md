@@ -4,7 +4,6 @@
   - [Transport](#transport)
   - [Entity ID](#entity-id)
   - [BaseMessage](#basemessage)
-  - [User devices](#user-devices)
 
 ## Transport
 For starting we simply use JSON + Websockets.
@@ -65,7 +64,3 @@ interface BaseMessage {
     payload: Map<K,V>
 }
 ```
-
-## User devices
-`todo`
-
