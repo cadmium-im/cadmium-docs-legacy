@@ -45,7 +45,7 @@ Your proposal MUST include a section entitled "Security Considerations". Even if
 An JSON Schema is required in order for protocols to be approved by the Cadmium Developers. The Cadmium Developers team can assist you in defining an JSON Schema for the protocol you are proposing.
 
 ## Acknowledgements (optional)
-Most XEP documents end with a section thanking non-authors who have made significant contributions or who have provided feedback regarding the specification.
+Most CE documents end with a section thanking non-authors who have made significant contributions or who have provided feedback regarding the specification.
 
 # Cadmium Extension Styleguide
 CE document are written in English. It is not expected that you will be a fine prose writer, but try to write in a clear, easily-understood fashion.
