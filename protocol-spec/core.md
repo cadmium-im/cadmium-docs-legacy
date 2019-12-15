@@ -37,13 +37,37 @@ For starting we simply use JSON + Websockets.
 BaseMessage is a basic message model, basis of the whole protocol. It is used for a very easy protocol extension process.
 
 BaseMessage scheme:
-```
-id (string) - message identifier (used to track the request-response chain)
-type (string) - type of message (used to determine which extension this message belongs to)
-from (EntityID) - from which entity this message is send
-to (EntityID) - message recipient
-ok (boolean) - operation success indicator (used to determine if the error happened while processing request)
-payload (Map<K,V>) - message payload (used to store extra information in message, list of permissible fields in the payload depends on "type" field)
+```typescript
+interface BaseMessage {
+    /**
+     * Message identifier (used to track the request-response chain)
+     */
+    id: string, // 
+
+    /**
+     * Type of message (used to determine which extension this message belongs to)
+     */
+    type: string, // 
+    /**
+     * From which entity this message is send
+     */
+    from: EntityID, // 
+
+    /**
+     * Message recipient
+     */
+    to: EntityID, // 
+
+    /**
+     * Operation success indicator (used to determine if the error happened while processing request)
+     */
+    ok: boolean, // 
+
+    /**
+     * Message payload (used to store extra information in message, list of permissible fields in the payload depends on "type" field)
+     */
+    payload: Map<K,V> // 
+}
 ```
 
 ## Errors
@@ -51,9 +75,24 @@ Mechanism of error processing included into protocol.
 Adds into type name `:error` postfix.
 
 **Payload**:
-* `errCode: int` - error code (defined in extensions, may be same per extensions)
-* `errText: String` - explanation of error in human-readable view
-* `errPayload: Map<K,V>` - advanced error information (fields defined in extensions)
+```typescript
+interface ErrorPayload {
+    /**
+     * Error code (defined in extensions, may be same per extensions)
+     */
+    errCode: number,
+
+    /**
+     * Explanation of error in human-readable view
+     */
+    errText: string,
+
+    /**
+     * Advanced error information (fields defined in extensions)
+     */
+    errPayload: Map<K,V>
+}
+```
 
 **Usecase**:  
 
@@ -93,14 +132,46 @@ Adds into type name `:error` postfix.
 **Description**: Create user account on a server  
 **Type**: `profile:register`    
 **Payload**:
-- Request: 
-  - `username: string` - the username that the user wants to register
-  - `thirdPIDs: []` - array of user third party IDs (email and/or MSISDN). Array contains objects with following fields: 
-    - `type: string` - type of third party ID.
-    - `value: string` - string contains third party ID. Examples: `juliet@capulett.com`, `+1234567890`.
-  - `password: string` - password of new account
+- Request:
+```typescript
+interface RegistrationRequestPayload {
+    /**
+     * The username that the user wants to register
+     */
+    username: string,
+
+    /**
+     * Array of user third party IDs (email and/or MSISDN)
+     */
+    thirdPIDs: ThirdPartyID[],
+
+    /**
+     * Password of new account
+     */
+    password: string
+}
+
+interface ThirdPartyID {
+    /**
+     * Type of third party ID
+     */
+    type: string,
+
+    /**
+     * String contains third party ID. Examples: "juliet@capulett.com", "+1234567890".
+     */
+    value: string
+}
+```
 - Response:
-  - `userID: EntityID`- ID of user (Username in priority. If we haven't username, then we put to this field one of user's third party IDs).  
+```typescript
+interface RegistrationResponsePayload {
+    /**
+     * ID of user (Username in priority. If we haven't username, then we put to this field one of user's third party IDs)
+     */
+    userID: EntityID
+}
+```
 
 **Errors**:
 - 0: limit exceed
@@ -159,12 +230,34 @@ Adds into type name `:error` postfix.
 **Description**: Login into user account on a server by username
 **Type**: `profile:login`  
 **Payload**:
-- Request: 
-  - `username: string` - the username of account which user wants to login
-  - `password: string` - password of new account
+- Request:
+```typescript
+interface LoginRequestPayload {
+    /**
+     * The username of account which user wants to login
+     */
+    username: string,
+    
+    /**
+     * Password of new account
+     */
+    password: string
+}
+```
 - Response:
-  - `authToken: string` - authentication token which required for various user actions (UUID)
-  - `deviceID: string` - identifier of new user device (created by this login action)
+```typescript
+interface LoginResponsePayload {
+    /**
+     * Authentication token which required for various user actions (UUID)
+     */
+    authToken: string,
+    
+    /**
+     * Identifier of new user device (created by this login action)
+     */
+    deviceID: string
+}
+```
 
 **Errors**:  
 - 0: limit exceed

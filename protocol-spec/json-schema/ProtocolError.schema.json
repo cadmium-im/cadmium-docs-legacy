@@ -31,7 +31,7 @@
         "examples": [
           "Incorrect type of message (type isn't implemented in the server)",
           "Rate-limit exceed"
-        ],
+        ]
       },
       "errPayload": {
         "$id": "#/properties/errPayload",
