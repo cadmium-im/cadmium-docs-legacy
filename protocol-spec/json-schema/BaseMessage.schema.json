@@ -20,8 +20,7 @@
         "description": "Message identifier (used to track the request-response chain)",
         "examples": [
           "abcd"
-        ],
-        "pattern": "^(.*)$"
+        ]
       },
       "type": {
         "$id": "#/properties/type",
@@ -32,8 +31,7 @@
           "profile:register",
           "profile:login",
           "incorrectMessageType:error"
-        ],
-        "pattern": "^(.*)$"
+        ]
       },
       "from": {
         "$id": "#/properties/from",
@@ -45,8 +43,7 @@
           "@juliet@396277b7dcd0f1173f2007baa604de7593529cc3fbf335fb7924851cb25c1fdf",
           "#chpok@b9966d89028b120145dad38961bed0b3b2eac0a2915c0bb1665ffcc1586f6f59",
           "anonymous"
-        ],
-        "pattern": "^(.*)$"
+        ]
       },
       "to": {
         "$id": "#/properties/to",
@@ -58,17 +55,13 @@
           "#white_house_garden@8baef2426dc6a92e16d39d79d90ae6d5a0080aaeccc5f02f1e83a959bc4d0be7",
           "%phone:1234567890@6dfea40d98f71b3191f94c31af887a00eaeef2fe3501226e3fbb302fc5269eec",
           "@romeo@cadmium.im"
-        ],
-        "pattern": "^(.*)$"
+        ]
       },
       "payload": {
         "$id": "#/properties/payload",
         "type": "object",
         "title": "payload",
-        "description": "Message payload (used to store extra information in message, list of permissible fields in the payload depends on \"type\" field)",
-        "patternProperties": {
-          "^(.*)$": {}
-        }
+        "description": "Message payload (used to store extra information in message, list of permissible fields in the payload depends on \"type\" field)"
       }
     }
   }
