@@ -6,12 +6,12 @@ The introduction to a CE document should contain description of the extension an
 If your CE document uses terms that may not be familiar to the reader, please define them in this section.
 
 ## Use Cases
-It is recommended that document authors structure their proposals according to the use cases that the proposal will address. We have found that use cases force authors to focus on functionality rather than "protocol for the sake of protocol". It is also helpful to sort use cases by actor, as is done in Multi-User Chat (XEP-0045), for example. Include one subsection for each use case.
+It is recommended that document authors structure their proposals according to the use cases that the proposal will address. We have found that use cases force authors to focus on functionality rather than "protocol for the sake of protocol". It is also helpful to sort use cases by actor. Include one subsection for each use case.
 
 When writing use cases and the associated protocols, make sure to:
 
 * Clearly define the success scenarios, alternate flows, and possible errors.
-* Describe the expected behavior of XMPP clients, servers, and components when using this protocol.
+* Describe the expected behavior of Cadmium clients, servers, and components when using this protocol.
 * Include lots of protocol examples.
 
 *Example 1. An Example from Shakespeare*
@@ -35,14 +35,14 @@ You may want to include a section describing various business rules (essentially
 ## Implementation Notes
 You may want to include a section devoted to implementation notes. Again, this is not required but can be helpful to implementers.
 
-## Internationalization Considerations (?)
+## Internationalization Considerations
 If there are any internationalization or localization issues related to your proposal, define them in this optional section.
 
 ## Security Considerations
 Your proposal MUST include a section entitled "Security Considerations". Even if there are no security features or concerns related to your proposal, you MUST note that fact. For helpful guidelines, refer to RFC 3552.
 
 ## JSON Schema
-An XML Schema is required in order for protocols to be approved by the XMPP Council. The XMPP Extensions Editor team can assist you in defining an XML Schema for the protocol you are proposing.
+An JSON Schema is required in order for protocols to be approved by the Cadmium Developers. The Cadmium Developers team can assist you in defining an JSON Schema for the protocol you are proposing.
 
 ## Acknowledgements (optional)
 Most XEP documents end with a section thanking non-authors who have made significant contributions or who have provided feedback regarding the specification.
