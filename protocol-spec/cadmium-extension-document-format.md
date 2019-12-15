@@ -2,6 +2,9 @@
 ## Introduction
 The introduction to a CE document should contain description of the extension and example of problems which this extension can solve.
 
+## Message type identifiers
+In this section, specify the identifiers of the new types of protocol messages (which are introduced by the extension)
+
 ## Glossary
 If your CE document uses terms that may not be familiar to the reader, please define them in this section.
 
@@ -50,15 +53,8 @@ Most CE documents end with a section thanking non-authors who have made signific
 # Cadmium Extension Styleguide
 CE document are written in English. It is not expected that you will be a fine prose writer, but try to write in a clear, easily-understood fashion.
 
-## Attributes
-When talking about an attribute by name, refer to it in single quotes. Example: the 'to' attribute.
-
-When talking about the value of an attribute, refer to it in double quotes. Example: the value of the 'subscription' attribute is "both".
-
-Elements possess attributes and contain character data and/or child elements; do not confuse these terms.
-
 ## Code Examples
-To show the hierarchy of JSON Objects, indent two spaces for every level.
+To show the hierarchy of JSON objects, indent two spaces for every level.
 
 If an element possesses a large number of attributes, include a line break before each attribute and indent them so that they are vertically aligned for readability.
 
