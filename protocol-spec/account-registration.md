@@ -1,17 +1,23 @@
 # Account registration
+
 ## Introduction
+
 This extension is intended for creating user accounts on a server  
 
 ## Message type identifiers
-- `profile:register`    
+
+- `profile:register`
 
 ## Error codes
+
 - 0: limit exceed
 - 1: username/third party ID already taken
 - 2: registration isn't allowed on a server
 
 ## Use cases
+
 - Request:
+
 ```json
 {
     "id": "abcd",
@@ -29,6 +35,7 @@ This extension is intended for creating user accounts on a server
 ```
 
 - Response:
+
 ```json
 {
     "id": "abcd",
@@ -56,12 +63,15 @@ This extension is intended for creating user accounts on a server
 ```
 
 ## Business Rules
+
 None.
 
 ## JSON Schema
-**Payload**
+
+### Payload
 
 - Request:
+
 ```typescript
 interface RegistrationRequestPayload {
     /**
@@ -92,7 +102,9 @@ interface ThirdPartyID {
     value: string
 }
 ```
+
 - Response:
+
 ```typescript
 interface RegistrationResponsePayload {
     /**
