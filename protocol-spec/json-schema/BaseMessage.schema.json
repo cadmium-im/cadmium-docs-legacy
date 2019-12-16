@@ -62,6 +62,12 @@
         "type": "object",
         "title": "payload",
         "description": "Message payload (used to store extra information in message, list of permissible fields in the payload depends on \"type\" field)"
+      },
+      "ok": {
+        "$id": "#/properties/ok",
+        "type": "boolean",
+        "title": "ok",
+        "description": "Indicating whether request have an error"
       }
     }
   }

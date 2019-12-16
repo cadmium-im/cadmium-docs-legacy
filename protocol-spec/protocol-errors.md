@@ -1,7 +1,7 @@
 # Protocol Errors
 ## Introduction
 Mechanism of error processing included into protocol.  
-Adds into any type ID `:error` postfix.
+Adds into any response message `ok` variable. If `ok` is true - we have no errors, if `ok` is false - we have an error.
 
 ## Message type identifiers
 - `*:error`
@@ -24,9 +24,10 @@ Adds into any type ID `:error` postfix.
 ```json
 {
     "id": "abcd",
-    "type": "incorrectMessageType:error",
+    "type": "incorrectMessageType",
     "from": "cadmium.im",
     "to": "@juliet@cadmium.im",
+    "ok": false,
     "payload": {
         "errCode": 0,
         "errText": "Incorrect type of message (type isn't implemented in the server)",
