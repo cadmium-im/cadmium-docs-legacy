@@ -48,7 +48,8 @@ This extension is intended for creating user accounts on a server
 }
 ```
 
-*<b>Error</b> response*:
+- Error response:
+
 ```json
 {
     "id": "abcd",

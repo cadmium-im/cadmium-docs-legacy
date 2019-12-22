@@ -1,16 +1,22 @@
 # Account login by username
+
 ## Introduction
+
 This extension is intended for logging into user account on a server by username
 
 ## Message type identifiers
+
 - `profile:login`  
 
 ## Error codes
+
 - 0: limit exceed
 - 1: user ID/password isn't valid
 
 ## Use cases
+
 *Request*:
+
 ```json
 {
     "id": "abcd",
@@ -24,6 +30,7 @@ This extension is intended for logging into user account on a server by username
 ```
 
 *Response*:
+
 ```json
 {
     "id": "abcd",
@@ -38,6 +45,7 @@ This extension is intended for logging into user account on a server by username
 ```
 
 *<b>Error</b> response*:
+
 ```json
 {
     "id": "abcd",
@@ -52,33 +60,40 @@ This extension is intended for logging into user account on a server by username
 ```
 
 ## Business Rules
+
 None.
 
 ## JSON Schema
-**Payload**
+
+### Payload
 
 - Request:
+
 ```typescript
 interface LoginRequestPayload {
     /**
      * The username of account which user wants to login
      */
     username: string,
-    
+
+
     /**
      * Password of new account
      */
     password: string
 }
 ```
+
 - Response:
+
 ```typescript
 interface LoginResponsePayload {
     /**
      * Authentication token which required for various user actions (UUID)
      */
     authToken: string,
-    
+
+
     /**
      * Identifier of new user device (created by this login action)
      */

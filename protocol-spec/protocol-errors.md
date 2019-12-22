@@ -1,13 +1,18 @@
 # Protocol Errors
+
 ## Introduction
+
 Mechanism of error processing included into protocol.  
 Adds into any response message `ok` variable. If `ok` is true - we have no errors, if `ok` is false - we have an error.
 
 ## Message type identifiers
-- `*:error`
+
+None.
 
 ## Use cases
+
 *Request*:
+
 ```json
 {
     "id": "abcd",
@@ -21,6 +26,7 @@ Adds into any response message `ok` variable. If `ok` is true - we have no error
 ```
 
 *Response*:
+
 ```json
 {
     "id": "abcd",
@@ -37,7 +43,8 @@ Adds into any response message `ok` variable. If `ok` is true - we have no error
 ```
 
 ## JSON Schema
-**Payload**
+
+### Payload
 
 ```typescript
 interface ErrorPayload {
