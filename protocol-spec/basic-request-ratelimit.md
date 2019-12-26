@@ -43,9 +43,9 @@ None.
 }
 ```
 
-## Error Identifiers
+## Errors
 
-### Global error identifiers
+### Global errors
 
 - `ratelimit_exceed`
 

@@ -8,7 +8,7 @@ This extension is intended for creating user accounts on a server
 
 - `profile:register`
 
-## Error identifiers
+## Errors
 
 - Ratelimit system: enabled
 - `id_exists`: username/third party ID already taken
