@@ -49,9 +49,9 @@ None.
 ```typescript
 interface ErrorPayload {
     /**
-     * Error code (defined in extensions, may be same per extensions)
+     * Error identifier (defined in extensions, maybe same per extensions)
      */
-    errCode: number,
+    errId: string,
 
     /**
      * Explanation of error in human-readable view
