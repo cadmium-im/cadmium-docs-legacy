@@ -8,15 +8,16 @@ This extension is intended for creating user accounts on a server
 
 - `profile:register`
 
-## Error codes
+## Error identifiers
 
-- 0: limit exceed
-- 1: username/third party ID already taken
-- 2: registration isn't allowed on a server
+- `id_exists`: username/third party ID already taken
+- `reg_disabled`: registration isn't allowed on a server
 
 ## Use cases
 
-- Request:
+### Basic registration flow (with CAPTCHA)
+
+- Client:
 
 ```json
 {
@@ -34,7 +35,7 @@ This extension is intended for creating user accounts on a server
 }
 ```
 
-- Response:
+- Server:
 
 ```json
 {
@@ -57,15 +58,15 @@ This extension is intended for creating user accounts on a server
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": 1,
-        "errText": "{Username/email/msisdn} already taken"
+        "errCode": "id_exists",
+        "errText": "Username/email/msisdn already taken"
     }
 }
 ```
 
 ## Business Rules
 
-None.
+- Ratelimit system: enabled
 
 ## JSON Schema
 

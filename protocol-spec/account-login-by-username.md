@@ -8,10 +8,9 @@ This extension is intended for logging into user account on a server by username
 
 - `profile:login`  
 
-## Error codes
+## Error Identifiers
 
-- 0: limit exceed
-- 1: user ID/password isn't valid
+- `invalid_creds`: user ID/password isn't valid
 
 ## Use cases
 
@@ -53,7 +52,7 @@ This extension is intended for logging into user account on a server by username
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": 1,
+        "errCode": "invalid_creds",
         "errText": "Username/password isn't valid"
     }
 }
@@ -61,7 +60,7 @@ This extension is intended for logging into user account on a server by username
 
 ## Business Rules
 
-None.
+- Ratelimit system: enabled
 
 ## JSON Schema
 
