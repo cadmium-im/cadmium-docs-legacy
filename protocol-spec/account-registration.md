@@ -10,6 +10,7 @@ This extension is intended for creating user accounts on a server
 
 ## Error identifiers
 
+- Ratelimit system: enabled
 - `id_exists`: username/third party ID already taken
 - `reg_disabled`: registration isn't allowed on a server
 
@@ -66,7 +67,7 @@ This extension is intended for creating user accounts on a server
 
 ## Business Rules
 
-- Ratelimit system: enabled
+None.
 
 ## JSON Schema
 

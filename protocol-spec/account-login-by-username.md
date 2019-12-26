@@ -8,8 +8,9 @@ This extension is intended for logging into user account on a server by username
 
 - `profile:login`  
 
-## Error Identifiers
+## Errors
 
+- Ratelimit system: enabled
 - `invalid_creds`: user ID/password isn't valid
 
 ## Use cases
@@ -60,7 +61,7 @@ This extension is intended for logging into user account on a server by username
 
 ## Business Rules
 
-- Ratelimit system: enabled
+None.
 
 ## JSON Schema
 

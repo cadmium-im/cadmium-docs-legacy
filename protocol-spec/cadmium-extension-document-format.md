@@ -22,7 +22,7 @@ When writing use cases and the associated protocols, make sure to:
 * Describe the expected behavior of Cadmium clients, servers, and components when using this protocol.
 * Include lots of protocol examples.
 
-*Example 1. An Example from Shakespeare*
+*Example 1. An Example from Shakespeare*:
 
 ```json
 {
@@ -36,13 +36,13 @@ When writing use cases and the associated protocols, make sure to:
 }
 ```
 
-## Error Codes
+## Errors
 
-If your proposal defines a number of error and status codes, it is a good idea to include a table of all the codes defined in your document.
+If your proposal defines a number of error and error identifiers, it is a good idea to include a table of all the identifiers defined in your document.
 
 ## Business Rules
 
-You may want to include a section describing various business rules (essentially, a variety of MUSTs, SHOULDs, and MAYs regarding application behavior). This is not required but can be helpful to implementers.
+You may want to include a section describing various business rules (essentially, a variety of MUSTs, SHOULDs, and MAYs regarding application behavior). This section is not required but can be helpful to implementers.
 
 ## Implementation Notes
 
