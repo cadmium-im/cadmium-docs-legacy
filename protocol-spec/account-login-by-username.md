@@ -15,7 +15,7 @@ This extension is intended for logging into user account on a server by username
 
 ## Use cases
 
-*Request*:
+- Request:
 
 ```json
 {
@@ -29,7 +29,7 @@ This extension is intended for logging into user account on a server by username
 }
 ```
 
-*Response*:
+- Response:
 
 ```json
 {
@@ -44,7 +44,7 @@ This extension is intended for logging into user account on a server by username
 }
 ```
 
-*<b>Error</b> response*:
+- Error response:
 
 ```json
 {
@@ -72,10 +72,14 @@ None.
 ```typescript
 interface LoginRequestPayload {
     /**
-     * The username of account which user wants to login
+     * The username of account which user wants to login (can be omit if we set thirdPID)
      */
     username: string,
 
+    /**
+     * Third party ID which have user (can be omit if we set username)
+     */
+    thirdPID: string,
 
     /**
      * Password of new account

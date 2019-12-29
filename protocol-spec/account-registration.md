@@ -18,6 +18,8 @@ This extension is intended for creating user accounts on a server
 
 ### Basic registration flow
 
+`// TODO: introduce email/msisdn confirmation which prevents spam attacks`
+
 - Client:
 
 ```json
@@ -31,7 +33,8 @@ This extension is intended for creating user accounts on a server
             {"type":"email", "value":"juliet@capulett.com"},
             {"type":"msisdn", "value":"+1234567890"},
         ],
-        "password": "romeo1"
+        "password": "romeo1",
+        "loginOnSuccess": false
     }
 }
 ```
