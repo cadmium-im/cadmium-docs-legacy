@@ -89,7 +89,7 @@ interface LoginRequestPayload {
 ```typescript
 interface LoginResponsePayload {
     /**
-     * Authentication token which required for various user actions (UUID)
+     * Authentication token which required for various user actions (static SHA256 hash string from 4096 random characters)
      */
     authToken: string,
 

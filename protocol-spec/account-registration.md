@@ -16,7 +16,7 @@ This extension is intended for creating user accounts on a server
 
 ## Use cases
 
-### Basic registration flow (with CAPTCHA)
+### Basic registration flow
 
 - Client:
 
@@ -80,7 +80,7 @@ interface RegistrationRequestPayload {
     /**
      * The username that the user wants to register
      */
-    username: string,
+    username?: string,
 
     /**
      * Array of user third party IDs (email and/or MSISDN)
@@ -90,7 +90,12 @@ interface RegistrationRequestPayload {
     /**
      * Password of new account
      */
-    password: string
+    password: string,
+
+    /**
+     * Login to freshly created user account when registration will be completed
+     */
+    loginOnSuccess: boolean
 }
 
 interface ThirdPartyID {
@@ -113,6 +118,11 @@ interface RegistrationResponsePayload {
     /**
      * ID of user (Username in priority. If we haven't username, then we put to this field one of user's third party IDs)
      */
-    userID: EntityID
+    userID: EntityID,
+
+    /**
+     * Property with login payload (can be omit if property loginOnSuccess wasn't indicated true in RegistrationRequestPayload)
+     */
+    loginPayload?: LoginResponsePayload
 }
 ```
