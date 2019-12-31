@@ -1,6 +1,6 @@
-# The Sections of a Cadmium Extension (CE) document
+# The Sections of a Cadmium Protocol Proposal (CPP) document
 ## Introduction
-The introduction to a CE document should contain description of the extension and example of problems which this extension can solve.
+The introduction to a CPP document should contain description of the extension and example of problems which this extension can solve.
 
 ## Message type identifiers
 In this section, specify the identifiers of the new types of protocol messages (which are introduced by the extension)
