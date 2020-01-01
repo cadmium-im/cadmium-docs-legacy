@@ -53,13 +53,22 @@ Branch/commit will be automatically attached to YouTrack issue, so everyone inte
 
 This stage could take up to 2 (two) months. You should take this time and polish your proposal as much as possible and to receive as much votes as possible.
 
-After that time your proposal might be accepted or denied.
+This two-months-period is a maximum time range that can be used for discussing and polishing your proposal. This means that:
+
+* If you're done in 2 weeks - your CPP may be accepted.
+* If you're done in 1.5 months - your CPP may be accepted.
+* If you're done in ``$(two months - 1 day)`` - your CPP may be accepted.
+* If you haven't done in two months - your CPP WILL BE rejected.
 
 ### Actions for accepted proposal
 
 When proposal is accepted it should be moved to ``accepted`` directory from ``proposed`` keeping it's CPP ID. This SHOULD be done by proposer himself. Failing to do so might result in banning from future proposals discussions.
 
 After moving proposal's pull request SHOULD be merged in master. Right after that proposal considered as part of protocol and core developers SHOULD update protocol documentation to reflect changes.
+
+### Rejected proposals
+
+If proposal was rejected - YouTrack issue should be closed as well as pull request on Gitea without merging into master branch.
 
 ## Error Codes
 
