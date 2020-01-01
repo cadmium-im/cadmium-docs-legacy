@@ -47,7 +47,7 @@ When preliminary stage is over and you've received "green light" for creating pu
 5. Use template from ``cadmium-proposal-document-format.md`` placed in ``CPPs`` directory to describe your proposal in file created at step #3.
 6. Push branch to git and create pull request to ``master`` branch.
 
-Branch/commit will be automatically attached to YouTrack issue, so everyone interesting in it will receive notification and will be able to discuss your proposal.
+To attach your commits into YouTrack issue please add full YouTrack issue ID (e.g. ``SPEC-123``) into commit message, otherwise commit might be lost and proposal might be eventually denied.
 
 **Please note that CPP ID you'll receive from core developer might not be the very same as issue ID in YouTrack.**
 
