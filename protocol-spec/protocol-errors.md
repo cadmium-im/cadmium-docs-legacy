@@ -1,13 +1,18 @@
 # Protocol Errors
+
 ## Introduction
+
 Mechanism of error processing included into protocol.  
-Adds into any type ID `:error` postfix.
+Adds into any response message `ok` variable. If `ok` is true - we have no errors, if `ok` is false - we have an error.
 
 ## Message type identifiers
-- `*:error`
+
+None.
 
 ## Use cases
+
 *Request*:
+
 ```json
 {
     "id": "abcd",
@@ -21,12 +26,14 @@ Adds into any type ID `:error` postfix.
 ```
 
 *Response*:
+
 ```json
 {
     "id": "abcd",
-    "type": "incorrectMessageType:error",
+    "type": "incorrectMessageType",
     "from": "cadmium.im",
     "to": "@juliet@cadmium.im",
+    "ok": false,
     "payload": {
         "errCode": 0,
         "errText": "Incorrect type of message (type isn't implemented in the server)",
@@ -36,14 +43,15 @@ Adds into any type ID `:error` postfix.
 ```
 
 ## JSON Schema
-**Payload**
+
+### Payload
 
 ```typescript
 interface ErrorPayload {
     /**
-     * Error code (defined in extensions, may be same per extensions)
+     * Error identifier (defined in extensions, maybe same per extensions)
      */
-    errCode: number,
+    errId: string,
 
     /**
      * Explanation of error in human-readable view

@@ -1,17 +1,27 @@
 # Account registration
+
 ## Introduction
+
 This extension is intended for creating user accounts on a server  
 
 ## Message type identifiers
-- `profile:register`    
 
-## Error codes
-- 0: limit exceed
-- 1: username/third party ID already taken
-- 2: registration isn't allowed on a server
+- `profile:register`
+
+## Errors
+
+- Ratelimit system: enabled
+- `id_exists`: username/third party ID already taken
+- `reg_disabled`: registration isn't allowed on a server
 
 ## Use cases
-- Request:
+
+### Basic registration flow
+
+`// TODO: introduce email/msisdn confirmation which prevents spam attacks`
+
+- Client:
+
 ```json
 {
     "id": "abcd",
@@ -23,12 +33,14 @@ This extension is intended for creating user accounts on a server
             {"type":"email", "value":"juliet@capulett.com"},
             {"type":"msisdn", "value":"+1234567890"},
         ],
-        "password": "romeo1"
+        "password": "romeo1",
+        "loginOnSuccess": false
     }
 }
 ```
 
-- Response:
+- Server:
+
 ```json
 {
     "id": "abcd",
@@ -41,7 +53,8 @@ This extension is intended for creating user accounts on a server
 }
 ```
 
-*<b>Error</b> response*:
+- Error response:
+
 ```json
 {
     "id": "abcd",
@@ -49,25 +62,28 @@ This extension is intended for creating user accounts on a server
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": 1,
-        "errText": "{Username/email/msisdn} already taken"
+        "errCode": "id_exists",
+        "errText": "Username/email/msisdn already taken"
     }
 }
 ```
 
 ## Business Rules
+
 None.
 
 ## JSON Schema
-**Payload**
+
+### Payload
 
 - Request:
+
 ```typescript
 interface RegistrationRequestPayload {
     /**
      * The username that the user wants to register
      */
-    username: string,
+    username?: string,
 
     /**
      * Array of user third party IDs (email and/or MSISDN)
@@ -77,7 +93,12 @@ interface RegistrationRequestPayload {
     /**
      * Password of new account
      */
-    password: string
+    password: string,
+
+    /**
+     * Login to freshly created user account when registration will be completed
+     */
+    loginOnSuccess: boolean
 }
 
 interface ThirdPartyID {
@@ -92,12 +113,19 @@ interface ThirdPartyID {
     value: string
 }
 ```
+
 - Response:
+
 ```typescript
 interface RegistrationResponsePayload {
     /**
      * ID of user (Username in priority. If we haven't username, then we put to this field one of user's third party IDs)
      */
-    userID: EntityID
+    userID: EntityID,
+
+    /**
+     * Property with login payload (can be omit if property loginOnSuccess wasn't indicated true in RegistrationRequestPayload)
+     */
+    loginPayload?: LoginResponsePayload
 }
 ```
