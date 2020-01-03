@@ -208,13 +208,7 @@ interface CreatePrivateChatRequestPayload {
     /**
      * Type of chat which need to create
      */
-    chatType: ChatType,
-
-    /**
-     * Second chat member ID (first member is who trying to create this chat) in
-     * case when chatType is "user"
-     */
-    receiverUserId: EntityID
+    chatType: ChatType
 }
 ```
 
