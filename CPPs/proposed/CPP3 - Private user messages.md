@@ -4,7 +4,7 @@
 
 This proposal introduces the concept of chats (this proposal describes only private chats) and a mechanism for sending/receiving messages in the chat.
 
-![Message Mindmap](CPP3&#32;-&#32;Message&#32;Mindmap.png)
+![Message Mindmap](./CPP3-img.png)
 
 ## Message type identifiers
 
@@ -33,10 +33,9 @@ Note: C - client, S - server
     "id": "abcd",
     "type": "chat:create",
     "from": "@user1@cadmium.im",
-    "to": "cadmium.im",
+    "to": "@user2@cadmium.im",
     "payload": {
-        "chatType": "user",
-        "receiverUserId": "@user2@cadmium.im"
+        "chatType": "user"
     }
 }
 ```
@@ -78,12 +77,11 @@ Error response (S):
 {
     "id": "abcd",
     "type": "chat:created",
-    "from": "cadmium.im",
+    "from": "@user1@cadmium.im",
     "to": "@user2@cadmium.im",
     "ok": true,
     "payload": {
-        "roomId": "!22c5d942-22bc-45b3-9541-ec2b49afe5ec@cadmium.im",
-        "creatorUserId": "@user1@cadmium.im"
+        "roomId": "!22c5d942-22bc-45b3-9541-ec2b49afe5ec@cadmium.im"
     }
 }
 ```
@@ -111,7 +109,7 @@ Error response (S):
 {
     "id": "abcd",
     "type": "message:send",
-    "from": "cadmium.im",
+    "from": "!22c5d942-22bc-45b3-9541-ec2b49afe5ec@cadmium.im",
     "to": "@user1@cadmium.im",
     "ok": true,
     "payload": {
@@ -127,7 +125,7 @@ Error response (S):
 {
     "id": "abcd",
     "type": "message:receive",
-    "from": "cadmium.im",
+    "from": "!22c5d942-22bc-45b3-9541-ec2b49afe5ec@cadmium.im",
     "to": "@user2@cadmium.im",
     "ok": true,
     "payload": {
@@ -160,7 +158,7 @@ Error response (S):
 {
     "id": "abcd",
     "type": "message:read",
-    "from": "cadmium.im",
+    "from": "!22c5d942-22bc-45b3-9541-ec2b49afe5ec@cadmium.im",
     "to": "@user2@cadmium.im",
     "ok": true,
     "payload": {}
@@ -173,7 +171,7 @@ Error response (S):
 {
     "id": "abcd",
     "type": "message:receive:read",
-    "from": "cadmium.im",
+    "from": "!22c5d942-22bc-45b3-9541-ec2b49afe5ec@cadmium.im",
     "to": "@user1@cadmium.im",
     "ok": true,
     "payload": {
@@ -238,12 +236,7 @@ interface CreatePrivateChatNotificationPayload {
     /**
      * Identifier of newly created chat
      */
-    roomId: EntityID,
-
-    /**
-     * Identifier of user which created this chat
-     */
-    creatorUserId: EntityID
+    roomId: EntityID
 }
 ```
 
