@@ -34,10 +34,10 @@ None.
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": "ratelimit_exceed",
+        "errID": "ratelimit_exceed",
         "errText": "Request ratelimit exceed! Please, try again later!",
         "errPayload": {
-            "retryAfter": 2
+            "retryAfter": 1000
         }
     }
 }
@@ -61,7 +61,7 @@ None.
 ```typescript
 interface RatelimitExceedErrorPayload {
     /**
-     * How long after the client can retry the request (in seconds)
+     * How long after the client can retry the request (in millis)
      */
     retryAfter: number
 }

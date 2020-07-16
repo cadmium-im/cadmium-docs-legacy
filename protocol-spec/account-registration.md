@@ -62,7 +62,7 @@ This extension is intended for creating user accounts on a server
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": "id_exists",
+        "errID": "id_exists",
         "errText": "Username/email/msisdn already taken"
     }
 }

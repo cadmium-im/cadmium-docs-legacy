@@ -53,7 +53,7 @@ This extension is intended for logging into user account on a server by username
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errCode": "invalid_creds",
+        "errID": "invalid_creds",
         "errText": "Username/password isn't valid"
     }
 }

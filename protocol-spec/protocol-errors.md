@@ -35,7 +35,7 @@ None.
     "to": "@juliet@cadmium.im",
     "ok": false,
     "payload": {
-        "errCode": 0,
+        "errID": "unhandled",
         "errText": "Incorrect type of message (type isn't implemented in the server)",
         "errPayload": {}
     }
@@ -51,7 +51,7 @@ interface ErrorPayload {
     /**
      * Error identifier (defined in extensions, maybe same per extensions)
      */
-    errId: string,
+    errID: string,
 
     /**
      * Explanation of error in human-readable view
