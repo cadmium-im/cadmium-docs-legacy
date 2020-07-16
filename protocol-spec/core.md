@@ -54,15 +54,16 @@ interface BaseMessage {
      * Type of message (used to determine which extension this message belongs to)
      */
     type: string,
+
     /**
      * From which entity this message is send
      */
     from: EntityID,
 
     /**
-     * Message recipient
+     * Message recipients
      */
-    to: EntityID,
+    toAddresses: EntityID[],
 
     /**
      * Operation success indicator (used to determine if the error happened while processing request) - MUST be only in response from server
