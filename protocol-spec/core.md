@@ -26,7 +26,8 @@ For starting we simply use JSON + Websockets.
 ### Server-part
 
 - hostname: `IPv4 / [IPv6] / dns-domain:<port (1-65535)>` (for end-users use)
-- server ID: static SHA256 hash string from 4096 characters (for internal protocol use)
+- server ID: static SHA256 hash string from 4096 characters (for internal protocol use).
+  - Generation example (using Linux): `echo -n $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 4096 | head -n 1) | sha256sum`
 
 ### Username/Room alias/RoomID
 
