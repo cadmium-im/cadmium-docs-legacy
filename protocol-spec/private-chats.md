@@ -266,6 +266,7 @@ None.
 ```typescript
 interface SendMessagePayload {
     type: string; // the type of message
+    reply?: string; // message id on which this message is replying
     content: Content // the payload of message (depends on type)
 }
 ```
@@ -319,7 +320,8 @@ interface ReceiveMessagePayload {
     messageID: string; // the id of received message
     originServerTimestamp: number; // unix timestamp of received message on the origin server
     type: string; // the type of message
-    content: Content // the payload of message (depends on type)
+    reply?: string; // message id on which this message is replying
+    content: Content; // the payload of message (depends on type)
 }
 ```
 
