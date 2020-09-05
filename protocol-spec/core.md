@@ -37,6 +37,7 @@ MUST NOT be empty, and MUST contain only the characters `a-z`, `0-9`, `.`, `_`, 
 
 - RoomID SHOULD be UUID identifier.
 - Servers MUST use server ID in internal purposes instead of normal server-part with hostname. Only end-users MUST use normal server-part with hostname. This is done for easy multi-domain serving.
+- The type of messages SHOULD be URNs starting with `urn:cadmium` namespace.
 
 ## BaseMessage
 
