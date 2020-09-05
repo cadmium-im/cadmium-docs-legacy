@@ -197,7 +197,7 @@ This extension is intended for organizing private chat between two users.
     }
     ```
 
-### 5.3. Typing messages
+### 5.3. Typing message
 
 1. Typing message
 
@@ -206,9 +206,7 @@ This extension is intended for organizing private chat between two users.
         "id": "abcd",
         "type": "urn:cadmium:chats:private:typing",
         "to": ["@user1@cadmium.org"],
-        "payload": {
-            "status": "typing",
-        }
+        "payload": {}
     }
     ```
 
@@ -220,42 +218,15 @@ This extension is intended for organizing private chat between two users.
         "type": "urn:cadmium:chats:private:read",
         "from": "@user2@cadmium.im",
         "ok": true,
-        "payload": {
-            "status": "typing"
-        }
-    }
-    ```
-
-3. Pause typing message (e.g. when user stops abruptly typing message or just sent the message)
-
-    ```json
-    {
-        "id": "abcd",
-        "type": "urn:cadmium:chats:private:typing",
-        "to": ["@user1@cadmium.org"],
-        "payload": {
-            "status": "paused",
-        }
-    }
-    ```
-
-4. Receive notification pausing typing message on other side:
-
-    ```json
-    {
-        "id": "defg",
-        "type": "urn:cadmium:chats:private:read",
-        "from": "@user2@cadmium.im",
-        "ok": true,
-        "payload": {
-            "status": "paused"
-        }
+        "payload": {}
     }
     ```
 
 ## 6. Business Rules
 
-None.
+### 6.1. Typing message notification
+
+- Client sends typing notification message every second when he is typing. If there is no notifications about typing more than one second then consider that user is stopped the typing.
 
 ## 7. JSON Schema
 
@@ -344,32 +315,5 @@ None.
 ```typescript
 interface ReceiveReadMessageNotifPayload {
     messageID: string; // the message id of read message
-}
-```
-
-### Typing message (`urn:cadmium:chats:private:typing`)
-
-**Request**:
-
-```typescript
-interface TypingMessagePayload {
-    status: TypingStatus; // the status of the typing
-}
-
-enum TypingStatus {
-    typing,
-    paused
-}
-```
-
-**Response**:
-
-None.
-
-### Receive read message notification (`urn:cadmium:chats:private:typing`)
-
-```typescript
-interface TypingMessageNotifPayload {
-    status: TypingStatus; // the status of the typing
 }
 ```
