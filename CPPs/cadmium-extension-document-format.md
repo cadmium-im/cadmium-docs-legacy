@@ -1,15 +1,16 @@
-# The Sections of a Cadmium Protocol Proposal (CPP) document
+# The Sections of a Cadmium Protocol Extension (CPE) document
 
 ## Introduction
-The introduction to a CPP document should contain description of the extension and example of problems which this extension can solve.
+
+The introduction to a CPE document should contain description of the extension and example of problems which this extension can solve.
 
 ## Message type identifiers
 
-In this section, specify the identifiers of the new types of protocol messages (which are introduced by the extension)
+In this section, specify the identifiers of the new types of protocol messages (which are introduced by the extension). These types SHOULD be URNs starting with `urn:cadmium` namespace.
 
 ## Glossary
 
-If your CE document uses terms that may not be familiar to the reader, please define them in this section.
+If your CPE document uses terms that may not be familiar to the reader, please define them in this section.
 
 ## Use Cases
 
@@ -61,11 +62,11 @@ An JSON Schema is required in order for protocols to be approved by the Cadmium 
 
 ## Acknowledgements (optional)
 
-Most CE documents end with a section thanking non-authors who have made significant contributions or who have provided feedback regarding the specification.
+Most CPE documents end with a section thanking non-authors who have made significant contributions or who have provided feedback regarding the specification.
 
-## Cadmium Extension Styleguide
+## Cadmium Protocol Extension Styleguide
 
-CE document are written in English. It is not expected that you will be a fine prose writer, but try to write in a clear, easily-understood fashion.
+CPE document are written in English. It is not expected that you will be a fine prose writer, but try to write in a clear, easily-understood fashion.
 
 ### Code Examples
 
