@@ -64,7 +64,7 @@ interface BaseMessage {
     /**
      * Message recipients
      */
-    toAddresses: EntityID[],
+    to: EntityID[],
 
     /**
      * Operation success indicator (used to determine if the error happened while processing request) - MUST be only in response from server
