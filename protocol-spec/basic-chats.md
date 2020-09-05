@@ -15,6 +15,10 @@ This extension is intended for organizing chats between some entities.
 - Ratelimit system: disabled
 - Authorization: enabled
 
+### 3.1. Error types
+
+- `urn:cadmium:chats:private:banned` - Sending messages to user is prohibited, because he banned the sender of current message
+
 ## 4. Chat message types
 
 - `urn:cadmium:chats:message-types:general` - message with text and optional media
@@ -65,7 +69,7 @@ This extension is intended for organizing chats between some entities.
         "from": "cadmium.org",
         "ok": false,
         "payload": {
-            "errID": "banned",
+            "errID": "urn:cadmium:chats:private:banned",
             "errText": "The user banned you"
         }
     }
