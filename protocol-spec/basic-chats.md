@@ -1,14 +1,14 @@
-# Private chats
+# Basic chats
 
 ## 1. Introduction
 
-This extension is intended for organizing private chat between two users.
+This extension is intended for organizing chats between some entities.
 
 ## 2. Message type identifiers
 
-- `urn:cadmium:chats:private:message` - regular message
-- `urn:cadmium:chats:private:read` - read message system
-- `urn:cadmium:chats:private:typing` - typing message system
+- `urn:cadmium:chats:message` - regular message
+- `urn:cadmium:chats:read` - read message system
+- `urn:cadmium:chats:typing` - typing message system
 
 ## 3. Errors
 
@@ -30,7 +30,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "to": ["@user2@cadmium.org"],
         "payload": {
             "type": "urn:cadmium:chats:message-types:general",
@@ -46,7 +46,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "from": "cadmium.org",
         "ok": true,
         "payload": {
@@ -61,7 +61,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "from": "cadmium.org",
         "ok": false,
         "payload": {
@@ -76,7 +76,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "from": "@user1@cadmium.im",
         "ok": true,
         "payload": {
@@ -98,7 +98,7 @@ This extension is intended for organizing private chat between two users.
    ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "to": ["@user2@cadmium.org"],
         "payload": {
             "type": "urn:cadmium:chats:message-types:general",
@@ -121,7 +121,7 @@ This extension is intended for organizing private chat between two users.
    ```json
    {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "from": "cadmium.org",
         "ok": true,
         "payload": {
@@ -136,7 +136,7 @@ This extension is intended for organizing private chat between two users.
    ```json
    {
         "id": "defg",
-        "type": "urn:cadmium:chats:private:message",
+        "type": "urn:cadmium:chats:message",
         "from": "@user1@cadmium.im",
         "ok": true,
         "payload": {
@@ -163,7 +163,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:read",
+        "type": "urn:cadmium:chats:read",
         "to": ["@user1@cadmium.org"],
         "payload": {
             "messageID": "7a1b9a72-1677-4476-9b22-ef7fdbcff52e",
@@ -176,7 +176,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:read",
+        "type": "urn:cadmium:chats:read",
         "from": "cadmium.im",
         "ok": true,
         "payload": {}
@@ -188,7 +188,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "defg",
-        "type": "urn:cadmium:chats:private:read",
+        "type": "urn:cadmium:chats:read",
         "from": "@user2@cadmium.im",
         "ok": true,
         "payload": {
@@ -204,7 +204,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:private:typing",
+        "type": "urn:cadmium:chats:typing",
         "to": ["@user1@cadmium.org"],
         "payload": {}
     }
@@ -215,7 +215,7 @@ This extension is intended for organizing private chat between two users.
     ```json
     {
         "id": "defg",
-        "type": "urn:cadmium:chats:private:read",
+        "type": "urn:cadmium:chats:read",
         "from": "@user2@cadmium.im",
         "ok": true,
         "payload": {}
@@ -230,7 +230,7 @@ This extension is intended for organizing private chat between two users.
 
 ## 7. JSON Schema
 
-### Send message (`urn:cadmium:chats:private:message`)
+### Send message (`urn:cadmium:chats:message`)
 
 **Request**:
 
@@ -284,7 +284,7 @@ interface SendMessageResponsePayload {
     }
     ```
 
-### Receive message (`urn:cadmium:chats:private:message`)
+### Receive message (`urn:cadmium:chats:message`)
 
 ```typescript
 interface ReceiveMessagePayload {
@@ -296,7 +296,7 @@ interface ReceiveMessagePayload {
 }
 ```
 
-### Read message (`urn:cadmium:chats:private:read`)
+### Read message (`urn:cadmium:chats:read`)
 
 **Request**:
 
@@ -310,7 +310,7 @@ interface ReadMessagePayload {
 
 None.
 
-### Receive read message notification (`urn:cadmium:chats:private:read`)
+### Receive read message notification (`urn:cadmium:chats:read`)
 
 ```typescript
 interface ReceiveReadMessageNotifPayload {
