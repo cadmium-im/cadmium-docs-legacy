@@ -1,8 +1,8 @@
-# CPP#1 - Cadmium Protocol Proposals flow
+# CPE#1 - Cadmium Protocol Extensions flow
 
 ## Introduction
 
-This proposal about regulating whole flow of Cadmium Protocol Proposals. Also this proposal is an example of proposal composition.
+This proposal about regulating whole flow of creating Cadmium Protocol Extensions. Also this proposal is an example of extension composition.
 
 ## Message type identifiers
 
@@ -10,23 +10,25 @@ This proposal adds no identifiers to message types.
 
 ## Glossary
 
-There is no terms to define that specific to this proposal.
+There is no terms to define that specific to this extension.
 
 ## Use Cases
 
 ### Initial proposal discussion
 
-Initial proposal discussion should take it's place at [our YouTrack instance](https://track.cadmium.im/issues/SPEC) by creating new issue. So even before proposal will be ready you MUST create an issue in "Specification" project about our proposal.
+Initial proposal discussion should take it's place at [our GitHub repo](https://github.com/ChronosX88/cadmium-docs) by creating new issue. So even before extension will be ready you MUST create an issue with tag "extension" about your extension.
 
-Issue body SHOULD contain complete body for your proposal, not just something like "let's use SMTP as connectivity channel" but rather complete description of your proposal (even in free form) with technical details which can be used for discussion.
+Issue body SHOULD contain complete body for your extension, not just something like "let's use SMTP as connectivity channel" but rather complete description of your extension (even in free form) with technical details which can be used for discussion.
 
 This step is required to proceed to next stage.
 
-This stage SHOULD take two (2) weeks maximum counting from issue creation date. It also might take even 1 minute before proceeding to next stage if proposal was discussed before using other channels (email, chats, etc.).
+This stage SHOULD take two (2) weeks maximum counting from issue creation date. It also might take even 1 minute before proceeding to next stage if extension was discussed before using other channels (email, chats, etc.).
 
 #### Voting
 
-Voting about giving green or red light for proposal SHOULD be taken using:
+**TODO: NEED TO REWRITE WHOLE SECTION**
+
+Voting about giving green or red light for extension SHOULD be taken using:
 
 * "Thumbs up" icon in proposal issue in YouTrack (it's located near issue title in the very right corner). This will show community interest in this proposal and might speed up core team and developers acceptance.
 
@@ -36,20 +38,20 @@ After that you will receive "green light" to create pull request to [documentati
 
 When issue is closed - there is no possibility to reopen it.
 
-### Proposing your proposal
+### Proposing your extension
 
-When preliminary stage is over and you've received "green light" for creating pull request to [documentational project in git](https://git.cadmium.im/cadmium/documentation) you SHOULD:
+When preliminary stage is over and you've received "green light" for creating pull request to [documentational project in git](https://github.com/ChronosX88/cadmium-docs) you SHOULD:
 
-1. Ask for proposal ID to use in issue's comments or in one of our chats from core developers. Core developer should also specify given ID in comments in issue on our YouTrack instance.
+1. Ask for extension ID to use in issue's comments or in one of our chats from core developers. Core developer should also specify given ID in comments in issue on our YouTrack instance.
 2. Clone documentational repository to your local machine.
 3. Create new branch named same as YouTrack issue (e.g. ``SPEC-111``). You should create new branch using ``master`` branch as starting point.
-4. Create file in ``CPPs/proposed`` directory named like ``CPP123 - Your super enchancement proposal.md``. See examples in directories placed under ``CPPs``.
-5. Use template from ``cadmium-proposal-document-format.md`` placed in ``CPPs`` directory to describe your proposal in file created at step #3.
+4. Create file in ``CPEs/proposed`` directory named like ``CPE123 - Your super enchancement proposal.md``. See examples in directories placed under ``CPEs``.
+5. Use template from ``cadmium-extension-document-format.md`` placed in ``CPEs`` directory to describe your proposal in file created at step #3.
 6. Push branch to git and create pull request to ``master`` branch.
 
 To attach your commits into YouTrack issue please add full YouTrack issue ID (e.g. ``SPEC-123``) into commit message, otherwise commit might be lost and proposal might be eventually denied.
 
-**Please note that CPP ID you'll receive from core developer might not be the very same as issue ID in YouTrack.**
+**Please note that CPE ID you'll receive from core developer might not be the very same as issue ID in YouTrack.**
 
 This stage could take up to 2 (two) months. You should take this time and polish your proposal as much as possible and to receive as much votes as possible.
 
@@ -60,9 +62,9 @@ This two-months-period is a maximum time range that can be used for discussing a
 * If you're done in ``$(two months - 1 day)`` - your CPP may be accepted.
 * If you haven't done in two months - your CPP WILL BE rejected.
 
-### Actions for accepted proposal
+### Actions for accepted extension
 
-When proposal is accepted it should be moved to ``accepted`` directory from ``proposed`` keeping it's CPP ID. This SHOULD be done by proposer himself. Failing to do so might result in banning from future proposals discussions.
+When proposal is accepted it should be moved to ``accepted`` directory from ``proposed`` keeping it's CPE ID. This SHOULD be done by proposer himself. Failing to do so might result in banning from future proposals discussions.
 
 After moving proposal's pull request SHOULD be merged in master. Right after that proposal considered as part of protocol and core developers SHOULD update protocol documentation to reflect changes.
 
