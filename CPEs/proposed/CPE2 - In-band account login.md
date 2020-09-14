@@ -1,4 +1,4 @@
-# Account login by username
+# CPE#2 - In-band account login
 
 ## Introduction
 

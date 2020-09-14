@@ -1,4 +1,4 @@
-# Account registration
+# CPE#3 - In-band account registration
 
 ## Introduction
 

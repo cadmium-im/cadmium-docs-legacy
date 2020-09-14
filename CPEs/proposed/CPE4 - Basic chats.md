@@ -1,8 +1,10 @@
-# Basic chats
+# CPE#4 - Basic chats
 
 ## 1. Introduction
 
 This extension is intended for organizing chats between some entities.
+
+`// TODO describe about events`
 
 ## 2. Requirements
 

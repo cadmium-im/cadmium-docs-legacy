@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This extension is intended to limit the number of requests from clients per unit of time. It is based on Protocol Errors extension.
+This core extension is intended to limit the number of requests from clients per unit of time.
 
 ## Message type identifiers
 
