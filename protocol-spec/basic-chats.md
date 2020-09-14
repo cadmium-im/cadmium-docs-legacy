@@ -4,30 +4,40 @@
 
 This extension is intended for organizing chats between some entities.
 
-## 2. Message type identifiers
+## 2. Requirements
+
+- Exchanging text messages
+- Typing status
+- Message reading
+- Sharing files/media
+- Forwards and replies to messages
+- Stickers/GIF
+- Message reactions
+
+## 3. Message type identifiers
 
 - `urn:cadmium:chats:message` - regular message
 - `urn:cadmium:chats:read` - read message system
 - `urn:cadmium:chats:typing` - typing message system
 
-## 3. Errors
+## 4. Errors
 
 - Ratelimit system: disabled
 - Authorization: enabled
 
-### 3.1. Error types
+### 4.1. Error types
 
-- `urn:cadmium:chats:private:banned` - Sending messages to user is prohibited, because he banned the sender of current message
+- `urn:cadmium:chats:private:banned` - Sending messages to user is prohibited, because he banned the sender of current message - in case if we send the message to user entity.
 
-## 4. Chat message types
+## 5. Chat message types
 
 - `urn:cadmium:chats:message-types:general` - message with text and optional media
 - `urn:cadmium:chats:message-types:audio` - audio message
 - `urn:cadmium:chats:message-types:geolocation` - message with geolocation (coordinates)
 
-## 5. Use cases
+## 6. Use cases
 
-### 5.1. Exchanging messages
+### 6.1. Exchanging messages
 
 1. Sending message:
 
@@ -94,7 +104,7 @@ This extension is intended for organizing chats between some entities.
     }
     ```
 
-### 5.2. Exchanging media
+### 6.2. Exchanging media
 
 1. Upload the media to HTTP Upload service (explanation out of scope of this document)
 2. Send message containing the URL of uploaded media:
@@ -160,7 +170,7 @@ This extension is intended for organizing chats between some entities.
     }
    ```
 
-### 5.3. Read messages
+### 6.3. Read messages
 
 1. Read message
 
@@ -201,7 +211,7 @@ This extension is intended for organizing chats between some entities.
     }
     ```
 
-### 5.3. Typing message
+### 6.4. Typing message
 
 1. Typing message
 
@@ -226,13 +236,13 @@ This extension is intended for organizing chats between some entities.
     }
     ```
 
-## 6. Business Rules
+## 7. Business Rules
 
-### 6.1. Typing message notification
+### 7.1. Typing message notification
 
 - Client sends typing notification message every second when he is typing. If there is no notifications about typing more than one second then consider that user is stopped the typing.
 
-## 7. JSON Schema
+## 8. JSON Schema
 
 ### Send message (`urn:cadmium:chats:message`)
 
