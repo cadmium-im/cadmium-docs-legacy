@@ -6,12 +6,12 @@ This extension is intended for logging into user account on a server by username
 
 ## Message type identifiers
 
-- `profile:login`  
+- `urn:cadmium:profile:login`  
 
 ## Errors
 
 - Ratelimit system: enabled
-- `invalid_creds`: user ID/password isn't valid
+- `urn:cadmium:profile:login:invalid_creds`: user ID/password isn't valid
 
 ## Use cases
 
@@ -20,8 +20,8 @@ This extension is intended for logging into user account on a server by username
 ```json
 {
     "id": "abcd",
-    "type": "profile:login",
-    "to": "cadmium.org",
+    "type": "urn:cadmium:profile:login",
+    "to": ["cadmium.org"],
     "payload": {
         "username": "juliet",
         "password": "romeo1"
@@ -34,7 +34,7 @@ This extension is intended for logging into user account on a server by username
 ```json
 {
     "id": "abcd",
-    "type": "profile:login",
+    "type": "urn:cadmium:profile:login",
     "from": "cadmium.org",
     "ok": true,
     "payload": {
@@ -49,11 +49,11 @@ This extension is intended for logging into user account on a server by username
 ```json
 {
     "id": "abcd",
-    "type": "profile:login",
+    "type": "urn:cadmium:profile:login",
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errID": "invalid_creds",
+        "errID": "urn:cadmium:profile:login:invalid_creds",
         "errText": "Username/password isn't valid"
     }
 }

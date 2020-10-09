@@ -6,13 +6,13 @@ This extension is intended for creating user accounts on a server
 
 ## Message type identifiers
 
-- `profile:register`
+- `urn:cadmium:profile:register`
 
 ## Errors
 
 - Ratelimit system: enabled
-- `id_exists`: username/third party ID already taken
-- `reg_disabled`: registration isn't allowed on a server
+- `urn:cadmium:profile:register:id_exists`: username/third party ID already taken
+- `urn:cadmium:profile:register:reg_disabled`: registration isn't allowed on a server
 
 ## Use cases
 
@@ -25,8 +25,8 @@ This extension is intended for creating user accounts on a server
 ```json
 {
     "id": "abcd",
-    "type": "profile:register",
-    "to": "cadmium.org",
+    "type": "urn:cadmium:profile:register",
+    "to": ["cadmium.org"],
     "payload": {
         "username": "juliet",
         "thirdPIDs": [
@@ -44,7 +44,7 @@ This extension is intended for creating user accounts on a server
 ```json
 {
     "id": "abcd",
-    "type": "profile:register",
+    "type": "urn:cadmium:profile:register",
     "from": "cadmium.org",
     "ok": true,
     "payload": {
@@ -58,11 +58,11 @@ This extension is intended for creating user accounts on a server
 ```json
 {
     "id": "abcd",
-    "type": "profile:register",
+    "type": "urn:cadmium:profile:register",
     "from": "cadmium.org",
     "ok": false,
     "payload": {
-        "errID": "id_exists",
+        "errID": "urn:cadmium:profile:register:id_exists",
         "errText": "Username/email/msisdn already taken"
     }
 }
