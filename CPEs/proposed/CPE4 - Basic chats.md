@@ -257,19 +257,22 @@ This extension is intended for organizing chats between some entities.
 - Client sends typing notification message every second when he is typing. If there is no notifications about typing more than one second then consider that user is stopped the typing.
 
 ### 7.2. Message/Media ID
-  
+
 - This is typically Federated Entity ID of message/media (as described and reserved in core specs) which was stored in server's database/content service storage.
 
 ## 8. JSON Schema
 
-### Send message (`urn:cadmium:chats:message`)
+### Message (`urn:cadmium:chats:message`)
 
 **Request**:
 
 ```typescript
-interface SendMessagePayload {
+interface MessagePayload {
+    messageID?: EntityID; // the message id (stored in chat timeline) - not required when sending
     type: string; // the type of message
-    reply?: string; // message id on which this message is replying
+    replyTo?: EntityID; // message id to which this message is replying
+    originServerTimestamp?: number; // unix timestamp of received message on the origin server (not required when sending)
+    forwardedFrom?: EntityID | string; // entity from which this message was forwarded (may be hidden, so instead client need to show the display name of entity)
     content: Content // the payload of message (depends on type)
 }
 ```
@@ -278,8 +281,8 @@ interface SendMessagePayload {
 
 ```typescript
 interface SendMessageResponsePayload {
-    messageID: string; // the message id (stored in chat timeline)
-    originServerTimestamp: number // unix timestamp of sent message on the origin server
+    messageID: EntityID; // the message id (stored in chat timeline)
+    originServerTimestamp: number; // unix timestamp of sent message on the origin server
 }
 ```
 
@@ -290,13 +293,14 @@ interface SendMessageResponsePayload {
     ```typescript
     interface GeneralMessageContent {
         text: string; // the text (body) of message
+        mentioned?: boolean; // is current entity was mentioned in this message
         media?: Media[]; // media content
     }
 
     interface Media {
         id: string; // media ID
         type: string; // type of media
-        size: int; // size of media in bytes
+        size: number; // size of media in bytes
         fileName?: string; // filename of media (with optional extension by dot)
         attrs: MediaAttrs; // media payload (additional attributes)
     }
@@ -308,7 +312,7 @@ interface SendMessageResponsePayload {
     // urn:cadmium:chats:media:audio
     interface AudioAttrs : MediaAttrs {
         voice: bool; // whether it is voice message
-        duration: int; // duration of audio
+        duration: number; // duration of audio
         title?: string; // audio title
         artist?: string; // audio artist
         voiceWaveForm?: []byte; // voice wave form
@@ -324,15 +328,15 @@ interface SendMessageResponsePayload {
     // urn:cadmium:chats:media:video
     interface VideoAttrs : MediaAttrs {
         isVideoMessage: bool; // is this a rounded video message
-        duration: int; // duration of video
-        width: int; // width of video
-        height: int; // height of video
+        duration: number; // duration of video
+        width: number; // width of video
+        height: number; // height of video
     }
 
     // urn:cadmium:chats:media:photo
     interface PhotoAttrs : MeditAttrs {
-        width: int; // width of photo
-        height: int; // height of photo
+        width: number; // width of photo
+        height: number; // height of photo
     }
     ```
 
@@ -345,36 +349,10 @@ interface SendMessageResponsePayload {
     }
     ```
 
-### Receive message (`urn:cadmium:chats:message`)
+### Read message notification (`urn:cadmium:chats:read`)
 
 ```typescript
-interface ReceiveMessagePayload {
-    messageID: string; // the id of received message
-    originServerTimestamp: number; // unix timestamp of received message on the origin server
-    type: string; // the type of message
-    reply?: string; // message id on which this message is replying
-    content: Content; // the payload of message (depends on type)
-}
-```
-
-### Read message (`urn:cadmium:chats:read`)
-
-**Request**:
-
-```typescript
-interface ReadMessagePayload {
-    messageID: string; // the message id of read message
-}
-```
-
-**Response**:
-
-None.
-
-### Receive read message notification (`urn:cadmium:chats:read`)
-
-```typescript
-interface ReceiveReadMessageNotifPayload {
-    messageID: string; // the message id of read message
+interface ReadMessageNotifPayload {
+    messageID: EntityID; // the message id of read message
 }
 ```
