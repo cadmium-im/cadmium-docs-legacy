@@ -4,8 +4,6 @@
 
 This extension is intended for organizing chats between some entities.
 
-`// TODO describe about events`
-
 ## 2. Requirements
 
 - Exchanging text messages
@@ -33,9 +31,17 @@ This extension is intended for organizing chats between some entities.
 
 ## 5. Chat message types
 
-- `urn:cadmium:chats:message-types:general` - message with text and optional media
-- `urn:cadmium:chats:message-types:audio` - audio message
-- `urn:cadmium:chats:message-types:geolocation` - message with geolocation (coordinates)
+- `urn:cadmium:chats:message:types:general` - message with text and optional media
+- `urn:cadmium:chats:message:types:geolocation` - message with geolocation (coordinates)
+
+### 5.1. Media types
+
+- `urn:cadmium:chats:media:photo` - a photo
+- `urn:cadmium:chats:media:audio` - an audio or voice message
+- `urn:cadmium:chats:media:video` - a video or rounded video message
+- `urn:cadmium:chats:media:file` - any other file type
+- `urn:cadmium:chats:media:sticker` - a sticker
+- `urn:cadmium:chats:media:gif` - an animated GIF 
 
 ## 6. Use cases
 
@@ -49,7 +55,7 @@ This extension is intended for organizing chats between some entities.
         "type": "urn:cadmium:chats:message",
         "to": ["@user2@cadmium.org"],
         "payload": {
-            "type": "urn:cadmium:chats:message-types:general",
+            "type": "urn:cadmium:chats:message:types:general",
             "content": {
                 "text": "hello world",
             }
@@ -98,7 +104,7 @@ This extension is intended for organizing chats between some entities.
         "payload": {
             "messageID": "3b5135a5-aff5-4396-a629-a254f383e82f",
             "originServerTimestamp": 1599327584,
-            "type": "urn:cadmium:chats:message-types:general",
+            "type": "urn:cadmium:chats:message:types:general",
             "content": {
                 "text": "hello world",
             }
@@ -108,22 +114,21 @@ This extension is intended for organizing chats between some entities.
 
 ### 6.2. Exchanging media
 
-1. Upload the media to HTTP Upload service (explanation out of scope of this document)
-2. Send message containing the URL of uploaded media:
+1. Upload the media to Content Service (explanation out of scope of this document)
+2. Send message containing the metadata of uploaded media:
 
    ```json
     {
         "id": "abcd",
         "type": "urn:cadmium:chats:message",
-        "to": ["@user2@cadmium.org"],
+        "to": ["@user2@cadmium.im"],
         "payload": {
             "type": "urn:cadmium:chats:message-types:general",
             "content": {
                 "text": "",
                 "media": [
                     {
-                        "url": "https://upload.cadmium.im/4a771ac1-f0b2-4a4a-9700-f2a26fa2bb67",
-                        "mimeType": "image/jpeg"
+                        "id": "4a771ac1-f0b2-4a4a-9700-f2a26fa2bb67@content.cadmium.im"
                     }
                 ]
             }
@@ -138,7 +143,7 @@ This extension is intended for organizing chats between some entities.
    {
         "id": "abcd",
         "type": "urn:cadmium:chats:message",
-        "from": "cadmium.org",
+        "from": "cadmium.im",
         "ok": true,
         "payload": {
             "messageID": "7a1b9a72-1677-4476-9b22-ef7fdbcff52e",
@@ -146,6 +151,8 @@ This extension is intended for organizing chats between some entities.
         }
     }
    ```
+
+   **Note**: The Cadmium server will validate media ID which was provided by client. If it doesn't exist or invalid, server will respond with corresponding error.
 
 3. Receive message with media on other side:
 
@@ -158,13 +165,18 @@ This extension is intended for organizing chats between some entities.
         "payload": {
             "messageID": "7a1b9a72-1677-4476-9b22-ef7fdbcff52e",
             "originServerTimestamp": 1599329232,
-            "type": "urn:cadmium:chats:message-types:general",
+            "type": "urn:cadmium:chats:message:types:general",
             "content": {
                 "text": "",
                 "media": [
                     {
-                        "url": "https://upload.cadmium.im/4a771ac1-f0b2-4a4a-9700-f2a26fa2bb67",
-                        "mimeType": "image/jpeg"
+                        "id": "4a771ac1-f0b2-4a4a-9700-f2a26fa2bb67@content.cadmium.im",
+                        "type": "urn:cadmium:chats:media:photo",
+                        "attrs": {
+                            "width": 512,
+                            "height": 512 
+                        },
+                        "size": 96413, // 96kb
                     }
                 ]
             }
@@ -231,7 +243,7 @@ This extension is intended for organizing chats between some entities.
     ```json
     {
         "id": "defg",
-        "type": "urn:cadmium:chats:read",
+        "type": "urn:cadmium:chats:typing",
         "from": "@user2@cadmium.im",
         "ok": true,
         "payload": {}
@@ -243,6 +255,10 @@ This extension is intended for organizing chats between some entities.
 ### 7.1. Typing message notification
 
 - Client sends typing notification message every second when he is typing. If there is no notifications about typing more than one second then consider that user is stopped the typing.
+
+### 7.2. Message/Media ID
+  
+- This is typically Federated Entity ID of message/media (as described and reserved in core specs) which was stored in server's database/content service storage.
 
 ## 8. JSON Schema
 
@@ -269,7 +285,7 @@ interface SendMessageResponsePayload {
 
 #### Content sections
 
-- `urn:cadmium:chats:message-types:general`:
+- `urn:cadmium:chats:message:types:general`:
 
     ```typescript
     interface GeneralMessageContent {
@@ -278,20 +294,49 @@ interface SendMessageResponsePayload {
     }
 
     interface Media {
-        url: string; // url of media (where it stores)
-        mimeType: string; // mime type of media
+        id: string; // media ID
+        type: string; // type of media
+        size: int; // size of media in bytes
+        fileName?: string; // filename of media (with optional extension by dot)
+        attrs: MediaAttrs; // media payload (additional attributes)
+    }
+
+    // Media attributes definitions
+
+    interface MediaAttrs {}
+
+    // urn:cadmium:chats:media:audio
+    interface AudioAttrs : MediaAttrs {
+        voice: bool; // whether it is voice message
+        duration: int; // duration of audio
+        title?: string; // audio title
+        artist?: string; // audio artist
+        voiceWaveForm?: []byte; // voice wave form
+    }
+
+    // urn:cadmium:chats:media:sticker
+    interface StickerAttrs : MediaAttrs {
+        associatedEmoji: string; // the associated emoji with this 
+        stickerSetID: string; // id of sticker set which is associated with this sticker
+        isAnimated: boolean; // is client need to animate this sticker
+    }
+
+    // urn:cadmium:chats:media:video
+    interface VideoAttrs : MediaAttrs {
+        isVideoMessage: bool; // is this a rounded video message
+        duration: int; // duration of video
+        width: int; // width of video
+        height: int; // height of video
+    }
+
+    // urn:cadmium:chats:media:photo
+    interface PhotoAttrs : MeditAttrs {
+        width: int; // width of photo
+        height: int; // height of photo
     }
     ```
 
-- `urn:cadmium:chats:message-types:audio`:
-
-    ```typescript
-    interface AudioMessageContent {
-        url: string; // the url of audio message
-    }
-    ```
-
-- `urn:cadmium:chats:message-types:geolocation`:
+- `urn:cadmium:chats:message:types:geolocation`:
 
     ```typescript
     interface GeolocationMessageContent {

@@ -2,7 +2,7 @@
 
 - [Protocol Core](#protocol-core)
   - [Transport](#transport)
-  - [Entity ID](#entity-id)
+  - [Federated Entity ID](#federated-entity-id)
     - [Server-part](#server-part)
     - [Username/Room alias/RoomID](#usernameroom-aliasroomid)
     - [Special business rules](#special-business-rules)
@@ -12,15 +12,18 @@
 
 For starting we simply use JSON + Websockets.
 
-## Entity ID
+## Federated Entity ID
+
+Some reserved formats:
 
 - Room alias: `#<roomAlias>@<serverpart>`
 - Username: `@<username>@<serverpart>`
 - User ID with any 3PID: `%<type>:<data>@<serverpart>`
   - Currently supported only following types: `email` and `msisdn`.
 - Raw User ID: `@<UUID>@<serverpart>`
-- Message ID: `&<uuid>@<serverpart (of source server)>`
-- Room ID: `!<roomID>@<serverpart>`
+- Message ID: `&msg:<uuid>@<serverpart of source server>`
+- Media ID: `&media:<uuid>@<content service serverpart>`
+- Group Chat ID: `!<roomID>@<serverpart>`
 - Single server-part: `<serverpart>`
 
 ### Server-part
