@@ -235,8 +235,8 @@ Authorization has multiple types which described in this document. Auth flow can
 
 ### 6.2. Authorization types
 
-- `urn:cadmium:auth:types:login_password` - simple login/pass authorization
-- `urn:cadmium:auth:types:token` - authorization by token
+- `urn:cadmium:auth:login_password` - simple login/pass authorization
+- `urn:cadmium:auth:token` - authorization by token
 
 ### 6.3. Common Flow
 
@@ -252,7 +252,7 @@ C->S:
     "type": "urn:cadmium:auth",
     "to": ["cadmium.org"],
     "payload": {
-		"type": "urn:cadmium:auth:types:login_password",
+		"type": "urn:cadmium:auth:login_password",
 		"fields": {
 			"username": "juliet",
 			"password": "romeo1"
@@ -284,7 +284,7 @@ C->S:
     "type": "urn:cadmium:auth",
     "to": ["cadmium.org"],
     "payload": {
-		"type": "urn:cadmium:auth:types:token",
+		"type": "urn:cadmium:auth:token",
 		"fields": {
 			"token": "3b5135a5-aff5-4396-a629-a254f383e82f",
 		}
@@ -314,11 +314,13 @@ interface AuthReq {
 
 interface AuthFields {}
 
+// urn:cadmium:auth:login_password
 interface LoginPassFields : AuthFields {
 	username: string;
 	password: string;
 }
 
+// urn:cadmium:auth:token
 interface TokenFields : AuthFields {
 	token: string;
 }
