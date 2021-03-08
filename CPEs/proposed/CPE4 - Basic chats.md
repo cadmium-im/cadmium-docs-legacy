@@ -1,5 +1,42 @@
 # CPE#4 - Basic chats
 
+## 0. Table of content
+
+- [CPE#4 - Basic chats](#cpe4---basic-chats)
+  - [0. Table of content](#0-table-of-content)
+  - [1. Introduction](#1-introduction)
+  - [2. Requirements](#2-requirements)
+  - [3. Message type identifiers](#3-message-type-identifiers)
+  - [4. Errors](#4-errors)
+    - [4.1. Error types](#41-error-types)
+  - [5. Event types](#5-event-types)
+    - [5.1. Media types](#51-media-types)
+  - [6. Use cases](#6-use-cases)
+    - [6.1. Exchanging messages](#61-exchanging-messages)
+    - [6.2. Exchanging media](#62-exchanging-media)
+    - [6.3. Read messages](#63-read-messages)
+    - [6.4. Typing message](#64-typing-message)
+    - [6.5. Message history API](#65-message-history-api)
+      - [6.5.1. History retrieving](#651-history-retrieving)
+  - [7. Business Rules](#7-business-rules)
+    - [7.1. Typing message notification](#71-typing-message-notification)
+    - [7.2. Message/Media ID](#72-messagemedia-id)
+  - [8. JSON Schema](#8-json-schema)
+    - [Event Entity](#event-entity)
+      - [Content sections](#content-sections)
+    - [Send message (`urn:cadmium:chat:message`)](#send-message-urncadmiumchatmessage)
+      - [Request](#request)
+      - [Response](#response)
+    - [Read message notification (`urn:cadmium:chat:read`)](#read-message-notification-urncadmiumchatread)
+      - [Request](#request-1)
+    - [Edit message notification (`urn:cadmium:chat:message:edit`)](#edit-message-notification-urncadmiumchatmessageedit)
+      - [Request](#request-2)
+    - [Delete message notification (`urn:cadmium:chat:message:delete`)](#delete-message-notification-urncadmiumchatmessagedelete)
+      - [Request](#request-3)
+    - [Sync history of user chats (`urn:cadmium:chat:history:sync`)](#sync-history-of-user-chats-urncadmiumchathistorysync)
+      - [Request](#request-4)
+      - [Response](#response-1)
+
 ## 1. Introduction
 
 This extension is intended for organizing chats between some entities.
@@ -16,9 +53,12 @@ This extension is intended for organizing chats between some entities.
 
 ## 3. Message type identifiers
 
-- `urn:cadmium:chats:message` - regular message
-- `urn:cadmium:chats:read` - read message system
-- `urn:cadmium:chats:typing` - typing message system
+- `urn:cadmium:chat:message` - regular message
+- `urn:cadmium:chat:read` - read message notification
+- `urn:cadmium:chat:typing` - typing message notification
+- `urn:cadmium:chat:message:edit` - edit message notification
+- `urn:cadmium:chat:message:delete` - delete message notification
+- `urn:cadmium:chat:history:sync` - sync history of user chats
 
 ## 4. Errors
 
@@ -27,35 +67,34 @@ This extension is intended for organizing chats between some entities.
 
 ### 4.1. Error types
 
-- `urn:cadmium:chats:private:banned` - Sending messages to user is prohibited, because he banned the sender of current message - in case if we send the message to user entity.
+- `urn:cadmium:chat:private:banned` - Sending messages to user is prohibited, because he banned the sender of current message - in case if we send the message to user entity.
 
-## 5. Chat message types
+## 5. Event types
 
-- `urn:cadmium:chats:message:types:general` - message with text and optional media
-- `urn:cadmium:chats:message:types:geolocation` - message with geolocation (coordinates)
+- `urn:cadmium:chat:event:message` - message with text and optional media
 
 ### 5.1. Media types
 
-- `urn:cadmium:chats:media:photo` - a photo
-- `urn:cadmium:chats:media:audio` - an audio or voice message
-- `urn:cadmium:chats:media:video` - a video or rounded video message
-- `urn:cadmium:chats:media:file` - any other file type
-- `urn:cadmium:chats:media:sticker` - a sticker
-- `urn:cadmium:chats:media:gif` - an animated GIF 
+- `urn:cadmium:chat:media:photo` - a photo
+- `urn:cadmium:chat:media:audio` - an audio or voice message
+- `urn:cadmium:chat:media:video` - a video or rounded video message
+- `urn:cadmium:chat:media:file` - any other file type
+- `urn:cadmium:chat:media:sticker` - a sticker
+- `urn:cadmium:chat:media:gif` - an animated GIF 
 
 ## 6. Use cases
 
 ### 6.1. Exchanging messages
 
-1. Sending message:
+1. C1->S - Sending message:
 
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "to": ["@user2@cadmium.org"],
         "payload": {
-            "type": "urn:cadmium:chats:message:types:general",
+            "type": "urn:cadmium:chat:event:message",
             "content": {
                 "text": "hello world",
             }
@@ -63,48 +102,48 @@ This extension is intended for organizing chats between some entities.
     }
     ```
 
-    **Successful response**:
+    S->C1 - Successful response:
 
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "from": "cadmium.org",
         "ok": true,
         "payload": {
-            "messageID": "3b5135a5-aff5-4396-a629-a254f383e82f",
+            "eventID": "3b5135a5-aff5-4396-a629-a254f383e82f",
             "originServerTimestamp": 1599327584
         }
     }
     ```
 
-    **Error response**:
+    S->C1 - **Error** response:
 
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "from": "cadmium.org",
         "ok": false,
         "payload": {
-            "errID": "urn:cadmium:chats:private:banned",
-            "errText": "The user banned you"
+            "errID": "urn:cadmium:chat:private:banned",
+            "errText": "The user has banned you"
         }
     }
     ```
 
-2. Receiving message on other side:
+2. S->C2:
 
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "from": "@user1@cadmium.im",
         "ok": true,
         "payload": {
-            "messageID": "3b5135a5-aff5-4396-a629-a254f383e82f",
+            "eventID": "3b5135a5-aff5-4396-a629-a254f383e82f",
             "originServerTimestamp": 1599327584,
-            "type": "urn:cadmium:chats:message:types:general",
+            "type": "urn:cadmium:chat:event:message",
             "content": {
                 "text": "hello world",
             }
@@ -117,13 +156,14 @@ This extension is intended for organizing chats between some entities.
 1. Upload the media to Content Service (explanation out of scope of this document)
 2. Send message containing the metadata of uploaded media:
 
+C1->S:
    ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "to": ["@user2@cadmium.im"],
         "payload": {
-            "type": "urn:cadmium:chats:message-types:general",
+            "type": "urn:cadmium:chat:event:message",
             "content": {
                 "text": "",
                 "media": [
@@ -137,12 +177,11 @@ This extension is intended for organizing chats between some entities.
     }
    ```
 
-   **Response**:
-
+S->C1:
    ```json
    {
         "id": "abcd",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "from": "cadmium.im",
         "ok": true,
         "payload": {
@@ -156,22 +195,24 @@ This extension is intended for organizing chats between some entities.
 
 3. Receive message with media on other side:
 
+S->C2:
+
    ```json
    {
         "id": "defg",
-        "type": "urn:cadmium:chats:message",
+        "type": "urn:cadmium:chat:message",
         "from": "@user1@cadmium.im",
         "ok": true,
         "payload": {
             "messageID": "7a1b9a72-1677-4476-9b22-ef7fdbcff52e",
             "originServerTimestamp": 1599329232,
-            "type": "urn:cadmium:chats:message:types:general",
+            "type": "urn:cadmium:chat:event:message",
             "content": {
                 "text": "",
                 "media": [
                     {
                         "id": "4a771ac1-f0b2-4a4a-9700-f2a26fa2bb67@content.cadmium.im",
-                        "type": "urn:cadmium:chats:media:photo",
+                        "type": "urn:cadmium:chat:media:photo",
                         "attrs": {
                             "width": 512,
                             "height": 512 
@@ -191,7 +232,7 @@ This extension is intended for organizing chats between some entities.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:read",
+        "type": "urn:cadmium:chat:read",
         "to": ["@user1@cadmium.org"],
         "payload": {
             "messageID": "7a1b9a72-1677-4476-9b22-ef7fdbcff52e",
@@ -204,7 +245,7 @@ This extension is intended for organizing chats between some entities.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:read",
+        "type": "urn:cadmium:chat:read",
         "from": "cadmium.im",
         "ok": true,
         "payload": {}
@@ -216,7 +257,7 @@ This extension is intended for organizing chats between some entities.
     ```json
     {
         "id": "defg",
-        "type": "urn:cadmium:chats:read",
+        "type": "urn:cadmium:chat:read",
         "from": "@user2@cadmium.im",
         "ok": true,
         "payload": {
@@ -232,9 +273,8 @@ This extension is intended for organizing chats between some entities.
     ```json
     {
         "id": "abcd",
-        "type": "urn:cadmium:chats:typing",
+        "type": "urn:cadmium:chat:typing",
         "to": ["@user1@cadmium.org"],
-        "payload": {}
     }
     ```
 
@@ -243,12 +283,19 @@ This extension is intended for organizing chats between some entities.
     ```json
     {
         "id": "defg",
-        "type": "urn:cadmium:chats:typing",
+        "type": "urn:cadmium:chat:typing",
         "from": "@user2@cadmium.im",
-        "ok": true,
-        "payload": {}
+        "ok": true
     }
     ```
+	
+### 6.5. Message history API
+
+#### 6.5.1. History retrieving
+
+
+
+
 
 ## 7. Business Rules
 
@@ -262,39 +309,30 @@ This extension is intended for organizing chats between some entities.
 
 ## 8. JSON Schema
 
-### Message (`urn:cadmium:chats:message`)
-
-**Request**:
+### Event Entity
 
 ```typescript
-interface MessagePayload {
-    messageID?: EntityID; // the message id (stored in chat timeline) - not required when sending
-    type: string; // the type of message
-    replyTo?: EntityID; // message id to which this message is replying
-    originServerTimestamp?: number; // unix timestamp of received message on the origin server (not required when sending)
-    forwardedFrom?: EntityID | string; // entity from which this message was forwarded (may be hidden, so instead client need to show the display name of entity)
-    content: Content // the payload of message (depends on type)
+interface Event {
+    id: EntityID; // the message id (stored in chat timeline) - not required when sending
+    type: string; // the type of event
+    originServerTimestamp: number; // unix timestamp of received message on the origin server (not required when sending)
+    content: Content; // the payload of message (depends on type)
 }
-```
 
-**Response**:
-
-```typescript
-interface SendMessageResponsePayload {
-    messageID: EntityID; // the message id (stored in chat timeline)
-    originServerTimestamp: number; // unix timestamp of sent message on the origin server
-}
+interface Content {}
 ```
 
 #### Content sections
 
-- `urn:cadmium:chats:message:types:general`:
+- `urn:cadmium:chat:events:types:message`:
 
     ```typescript
-    interface GeneralMessageContent {
+    interface MessageContent : Content {
         text: string; // the text (body) of message
         mentioned?: boolean; // is current entity was mentioned in this message
         media?: Media[]; // media content
+		forwardedFrom?: EntityID | string; // entity from which this message was forwarded (may be hidden, so instead client need to show the display name of entity)
+		replyTo?: EntityID; // message id to which this message is replying
     }
 
     interface Media {
@@ -338,21 +376,101 @@ interface SendMessageResponsePayload {
         width: number; // width of photo
         height: number; // height of photo
     }
-    ```
 
-- `urn:cadmium:chats:message:types:geolocation`:
-
-    ```typescript
-    interface GeolocationMessageContent {
-        lat: number; // the GPS latitude
+	interface GeolocationAttrs : MediaAttrs {
+		lat: number; // the GPS latitude
         lon: number; // the GPS longitude
-    }
+	}
     ```
 
-### Read message notification (`urn:cadmium:chats:read`)
+
+### Send message (`urn:cadmium:chat:message`)
+
+#### Request
 
 ```typescript
-interface ReadMessageNotifPayload {
-    messageID: EntityID; // the message id of read message
+interface SendMessageReq {
+    type: string;
+	content: Content;
+}
+```
+
+#### Response
+
+```typescript
+interface SendMessageResponsePayload {
+    id: EntityID; // the message id (stored in chat timeline)
+    originServerTimestamp: number; // unix timestamp of sent message on the origin server
+}
+```
+
+### Read message notification (`urn:cadmium:chat:read`)
+
+#### Request
+
+```typescript
+interface ReadMessageNotif {
+    eventID: EntityID; // the read message id
+}
+```
+
+### Edit message notification (`urn:cadmium:chat:message:edit`)
+
+#### Request
+
+```typescript
+interface EditMessageNotif {
+    eventID: EntityID; // edited message id
+    updatedContent: Content; // new content of message
+}
+```
+
+### Delete message notification (`urn:cadmium:chat:message:delete`)
+
+#### Request
+
+```typescript
+interface DeleteMessageNotif {
+    eventID: EntityID; // deleted message id
+}
+```
+
+### Sync history of user chats (`urn:cadmium:chat:history:sync`)
+
+#### Request
+
+```typescript
+interface ChatsHistorySyncReq {
+    since: EntityID; // event from which need to sync the history
+	limit: number; // count of events which need to return
+	includeChatInfo: boolean; // include chat/user info mentioned in events into response
+	chatID?: EntityID; // get history of specific chat
+	direction?: SyncDirection; // in case of getting history of specific chat
+}
+
+enum SyncDirection {
+	Up = "UP", // previous events from 'since' event
+	Down = "DOWN" // next events from 'since' event
+}
+```
+
+#### Response
+
+```typescript
+interface ChatsHistorySyncResp {
+    nextBatch: EntityID; // next 'since' value for client
+	events: Event[]; // synced events
+	chats?: Chat[]; // chats mentioned in events
+	users?: User[]; // users mentioned in events
+}
+
+interface Event {
+	eventID: EntityID; // event id in timeline
+	from: EntityID; // event author
+	chatID: EntityID; // related chat id
+	type: string; // type of event
+	timestamp: number; // origin timestamp of event
+	originServer: EntityID; // origin server author of event
+	content: Content; // content of event
 }
 ```
