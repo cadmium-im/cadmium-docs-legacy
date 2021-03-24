@@ -1,6 +1,6 @@
 # Cadmium protocol documentation
 
-**Cadmium** is new instant messaging system which is a refinement of ideas from XMPP and Matrix.org (and a correction of the fundamental errors of the listed protocols).
+**Cadmium** is new instant messaging system which is a refinement of ideas from XMPP and Matrix.org.
 
 This repo contains documentation about Cadmium protocol and other things.
 
